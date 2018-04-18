@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import JQuery from 'jquery'
+import Bootstrap from 'bootstrap'
 import delay  from 'timeout-as-promise'
 import Defaults from './defaults.js'
 

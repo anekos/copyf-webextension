@@ -43,6 +43,7 @@
   <body>
     <div id="app" class="container-fluid" v-cloak>
 
+
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#"><h1>Copyf</h1></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,44 +58,19 @@
 
       <div class="row mt-2">
         <div class="col-xs-12 col-sm-12">
-          <div class="card-columns">
-            <div class="card">
-              <div class="card-body">
-                <h2>Variables</h2>
-                <table class="table table-bordered">
-                  <tr>
-                    <td>Example</td>
-                    <td>Descrption</td>
-                  </tr>
-                  <tr><td>$(title)</td><td>Page title</td></tr>
-                  <tr><td>$(url)</td><td>Page URL</td></tr>
-                  <tr>
-                    <td>$(date yyyy/mm/dd hh:MM:ss)</td>
-                    <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
-                  </tr>
-                  <tr>
-                    <td>$(selector div.container &gt; h1.header)</td>
-                    <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-body">
-                <button class="btn btn-primary btn-block"
-                        @click="newFormat">Add a format</button>
-                <button class="btn btn-primary btn-block"
-                        @click="exportStorage">Export</button>
-                <div class="btn btn-primary btn-block form-control"
-                     @click="click">
-                  <input type="file"
-                         @change="importStorage">
-                  Import
-                </div>
-              </div>
-            </div>
+          <button class="btn btn-primary"
+                  @click="newFormat">Add a format</button>
+          <button class="btn btn-primary"
+                  @click="exportStorage">Export</button>
+          <div class="btn btn-primary"
+               @click="click">
+            <input type="file"
+                   @change="importStorage">
+            Import
           </div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help">
+            Help
+          </button>
         </div>
       </div>
 
@@ -131,6 +107,43 @@
 
         </div>
       </div>
+
+      <!-- HELP -->
+      <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Help</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2>Variables</h2>
+              <table class="table table-bordered">
+                <tr>
+                  <td>Example</td>
+                  <td>Descrption</td>
+                </tr>
+                <tr><td>$(title)</td><td>Page title</td></tr>
+                <tr><td>$(url)</td><td>Page URL</td></tr>
+                <tr>
+                  <td>$(date yyyy/mm/dd hh:MM:ss)</td>
+                  <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
+                </tr>
+                <tr>
+                  <td>$(selector div.container &gt; h1.header)</td>
+                  <td>Content text of selected with the CSS selector</td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </div>
     <script src="/js/manager.js"></script>
