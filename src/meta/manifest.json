@@ -1,0 +1,29 @@
+{
+  "description": "Copy formatted somthing to clipboard",
+  "manifest_version": 2,
+  "name": "Copyf",
+  "version": "0.0.1",
+  "icons": {
+    "64": "icon/64.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "64": "icon/64.png"
+    },
+    "default_title": "Copyf",
+    "default_popup": "html/popup.html"
+  },
+  "permissions": [
+    "<all_urls>",
+    "clipboardWrite",
+    "tabs",
+    "storage"
+  ],
+  "applications": {
+    "gecko": {
+      "id": "copyf@snca.net",
+      "strict_min_version": "57.0"
+    }
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
+}

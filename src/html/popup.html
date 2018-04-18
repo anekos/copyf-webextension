@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="/icon/64.png">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Copyf</title>
+    <style>
+[v-cloak] {
+  display: none;
+}
+      body {
+        width: 400px;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container" v-cloak>
+      <div class="row">
+        <div class="card col-sm-12">
+          <button type="button"
+                  class="btn btn-primary btn-block mt-2"
+                  @click="copy">Copy</button>
+
+          <select class="custom-select ml-0 mr-2 mt-2 mb-2"
+                  size="5"
+                  v-model="format">
+            <option v-for="it in formats"
+                    :value="it.text">{{ it.name || it.text }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <button type="button"
+                class="btn btn-secodary btn-block mb-2"
+                @click="manageFormats">Manage formats</button>
+      </div>
+    </div>
+    <script src="/js/popup.js"></script>
+  </body>
+</html>
