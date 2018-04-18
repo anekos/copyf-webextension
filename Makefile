@@ -11,7 +11,7 @@ watch:
 build:
 	npm run build
 
-release: build
+release: build sign
 	./script/release
 
 sign:
