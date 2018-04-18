@@ -18,6 +18,7 @@
     "file-loader": "^1.1.11",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
+    "timeout-as-promise": "^1.0.0",
     "vue": "^2.5.16",
     "vue-cli": "^2.9.3",
     "web-ext": "^2.6.0",

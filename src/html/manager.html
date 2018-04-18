@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="/icon/64.png">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Copyf Manager</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      @media (min-width: 576px) {
+        .card-columns {
+          column-count: 2;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .card-columns {
+          column-count: 3;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .card-columns {
+          column-count: 4;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .card-columns {
+          column-count: 5;
+        }
+      }
+      input[type="file"] {
+        display: block;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container-fluid" v-cloak>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><h1>Copyf</h1></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+        </div>
+      </nav>
+
+      <div class="row mt-2">
+        <div class="col-xs-12 col-sm-12">
+          <div class="card-columns">
+            <div class="card">
+              <div class="card-body">
+                <h2>Variables</h2>
+                <table class="table table-bordered">
+                  <tr><td>$(title)</td><td>Page title</td></tr>
+                  <tr><td>$(url)</td><td>Page URL</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <button class="btn btn-primary btn-block"
+                        @click="newFormat">Add a format</button>
+                <button class="btn btn-primary btn-block"
+                        @click="exportStorage">Export</button>
+                <div class="btn btn-primary btn-block form-control"
+                     @click="click">
+                  <input type="file"
+                         @change="importStorage">
+                  Import
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-xs-12 col-sm-12">
+
+          <div class="card-columns">
+            <div class="card"
+                 v-for="(fmt, index) in formats"
+                 :id="'format-' + index">
+              <div class="card-body">
+                <span class="text-muted small">{{ index }}</span>
+                <div class="form-group">
+                  <input class="form-control"
+                         type="text"
+                         placeholder="Name (Optional)"
+                         @change="saveFormats"
+                         v-model="fmt.name">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control"
+                            type="text"
+                            placeholder="Format"
+                            @change="saveFormats"
+                            v-model="fmt.text"></textarea>
+                </div>
+                <button class="btn btn-danger"
+                        @click="formats.splice(index, 1)">Delete</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <script src="/js/manager.js"></script>
+  </body>
+</html>

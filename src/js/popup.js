@@ -1,5 +1,7 @@
 
 import Vue from 'vue'
+import Bootstrap from 'bootstrap'
+import Defaults from './defaults.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -46,15 +48,9 @@ async function main() {
     return (context) => entries.map(entry => entry(context)).join('');
   }
 
-  let defaultFormats = [
-    {name: 'default', text: '⟦$(title)⟧ $(url)'},
-    {name: 'markdown', text: '[$(title)]($(url))'},
-    {name: 'markdown-image', text: '![$(title)]($(url))'},
-  ];
 
-  let formats = (await browser.storage.sync.get({formats: defaultFormats})).formats;
+  let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
 
-  console.log(JSON.stringify(formats));
 
   const app = new Vue({
     el: '#app',
@@ -75,8 +71,15 @@ async function main() {
         };
         await copyToClipboard(formatter(context));
         window.close();
-      }
-    }
+      },
+      showManager: function () {
+        chrome.tabs.create({
+          url: chrome.extension.getURL('html/manager.html'),
+          active: true,
+        });
+        window.close();
+      },
+    },
   });
 
   window.copyf = app;

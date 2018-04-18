@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <title>Copyf</title>
     <style>
-[v-cloak] {
-  display: none;
-}
+      [v-cloak] {
+        display: none;
+      }
       body {
         width: 400px;
         padding: 1em;
@@ -26,15 +26,15 @@
           <select class="custom-select ml-0 mr-2 mt-2 mb-2"
                   size="5"
                   v-model="format">
-            <option v-for="it in formats"
-                    :value="it.text">{{ it.name || it.text }}</option>
+            <option v-for="fmt in formats"
+                    :value="fmt.text">{{ fmt.name || fmt.text }}</option>
           </select>
         </div>
       </div>
       <div class="row mt-2">
         <button type="button"
                 class="btn btn-secodary btn-block mb-2"
-                @click="manageFormats">Manage formats</button>
+                @click="showManager">Manage formats</button>
       </div>
     </div>
     <script src="/js/popup.js"></script>
