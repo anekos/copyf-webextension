@@ -3,6 +3,7 @@ import Vue from 'vue'
 import JQuery from 'jquery'
 import Bootstrap from 'bootstrap'
 import delay  from 'timeout-as-promise'
+import draggable from 'vuedraggable'
 import Defaults from './defaults.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
@@ -20,6 +21,9 @@ async function main() {
 
   const app = new Vue({
     el: '#app',
+    components: {
+      draggable,
+    },
     data: {
       formats: formats,
     },
