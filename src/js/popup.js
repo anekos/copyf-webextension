@@ -1,16 +1,19 @@
 
 import Vue from 'vue'
 import Bootstrap from 'bootstrap'
+import DateFormat from 'dateformat'
+
 import Defaults from './defaults.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
 
 async function main() {
-  const source = {
+  const source = (args) => ({
     title: context => context.tab.title,
     url: context => context.tab.url,
-  };
+    date: context => DateFormat(args),
+  });
 
 
   function copyToClipboard(text = "") {
@@ -31,11 +34,11 @@ async function main() {
     let entries = [];
 
     while (rest.length) {
-      let [m, name, raw1, raw2] = rest.match(/^(?:\$\((.+?)\)|\$(\$)|([^$]+))/);
+      let [m, name, args, raw1, raw2] = rest.match(/^(?:\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
 
       (() => {
         if (name)
-          return entries.push(source[name] || (_ => '$(' + name + ')'));
+          return entries.push(source(args)[name] || (_ => '$(' + name + ')'));
         let raw = raw1 || raw2;
         if (raw)
           return entries.push(_ => raw);

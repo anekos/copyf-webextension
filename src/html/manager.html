@@ -64,6 +64,10 @@
                 <table class="table table-bordered">
                   <tr><td>$(title)</td><td>Page title</td></tr>
                   <tr><td>$(url)</td><td>Page URL</td></tr>
+                  <tr>
+                    <td>$(date yyyy/mm/dd hh:MM:ss)</td>
+                    <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -94,7 +98,7 @@
                  v-for="(fmt, index) in formats"
                  :id="'format-' + index">
               <div class="card-body">
-                <span class="text-muted small">{{ index }}</span>
+                <span class="text-muted small">{{ index  + 1}}</span>
                 <div class="form-group">
                   <input class="form-control"
                          type="text"
@@ -106,6 +110,8 @@
                   <textarea class="form-control"
                             type="text"
                             placeholder="Format"
+                            wrap="off"
+                            rows="4"
                             @change="saveFormats"
                             v-model="fmt.text"></textarea>
                 </div>
