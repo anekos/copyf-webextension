@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euC
+
+# exec 5>> /tmp/xmosh/shell-script-debug.out
+# BASH_XTRACEFD="5"
+# PS4='$LINENO: '
+# set -x
+
+if [ -n "$(git status --porcelain)" ]
+then
+  echo 'Working directory is not clean' 2>&1
+  exit 1
+fi
+
+version="$(jq -r '.version' < dist/manifest.json)"
+git tag "v$version"
+git push --tags
