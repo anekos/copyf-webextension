@@ -6,6 +6,7 @@ const app = {
   entry: {
     popup: './src/js/popup.js',
     manager: './src/js/manager.js',
+    content: './src/js/content.js',
   },
   mode: 'development',
   output: {

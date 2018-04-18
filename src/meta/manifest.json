@@ -13,6 +13,18 @@
     "default_title": "Copyf",
     "default_popup": "html/popup.html"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
   "permissions": [
     "<all_urls>",
     "clipboardWrite",

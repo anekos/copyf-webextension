@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Bootstrap from 'bootstrap'
 import DateFormat from 'dateformat'
+import pmap from 'p-map'
 
 import Defaults from './defaults.js'
 
@@ -13,15 +14,19 @@ async function main() {
     title: context => context.tab.title,
     url: context => context.tab.url,
     date: context => DateFormat(args),
+    selector: async context => {
+      return browser.tabs.sendMessage(context.tab.id, {command: 'selector', query: args});
+    }
   });
 
 
-  function copyToClipboard(text = "") {
+  function copyToClipboard(text, complete) {
     const once = evt => {
       document.removeEventListener('copy', once, true);
       evt.stopImmediatePropagation();
       evt.preventDefault();
       evt.clipboardData.setData('text/plain', text);
+      complete();
     };
 
     document.addEventListener('copy', once, true);
@@ -48,7 +53,7 @@ async function main() {
       rest = RegExp.rightContext;
     }
 
-    return (context) => entries.map(entry => entry(context)).join('');
+    return context => pmap(entries, (entry) => entry(context), {concurrency: 2}).then(it => it.join(''));
   }
 
 
@@ -69,11 +74,10 @@ async function main() {
           return;
 
         let formatter = parse(this.format);
-        let context = {
-          tab: tab,
-        };
-        await copyToClipboard(formatter(context));
-        window.close();
+        let context = {tab};
+        let content = await formatter(context);
+
+        copyToClipboard(content, window.close);
       },
       showManager: function () {
         chrome.tabs.create({

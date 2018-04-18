@@ -17,6 +17,7 @@
     "dateformat": "^3.0.3",
     "file-loader": "^1.1.11",
     "jquery": "^3.3.1",
+    "p-map": "^1.2.0",
     "popper.js": "^1.14.3",
     "timeout-as-promise": "^1.0.0",
     "vue": "^2.5.16",
