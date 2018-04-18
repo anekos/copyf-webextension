@@ -10,25 +10,24 @@
         display: none;
       }
       body {
-        width: 400px;
+        width: auto;
         padding: 1em;
+      }
+      #buttons {
+        overflow-y: auto;
+        max-height: 20em;
+        padding: 0.5em;
       }
     </style>
   </head>
   <body>
     <div id="app" class="container" v-cloak>
       <div class="row">
-        <div class="card col-sm-12">
+        <div id="buttons" class="card col-sm-12">
           <button type="button"
-                  class="btn btn-primary btn-block mt-2"
-                  @click="copy">Copy</button>
-
-          <select class="custom-select ml-0 mr-2 mt-2 mb-2"
-                  size="5"
-                  v-model="format">
-            <option v-for="fmt in formats"
-                    :value="fmt.text">{{ fmt.name || fmt.text }}</option>
-          </select>
+                  class="btn btn-primary btn-block btn-sm"
+                  @click="copy(fmt)"
+                  v-for="fmt in formats">{{ fmt.name || fmt.text }}</button>
         </div>
       </div>
       <div class="row mt-2">

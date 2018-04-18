@@ -64,16 +64,15 @@ async function main() {
     el: '#app',
     data: {
       formats: formats,
-      format: ((formats && formats[0]) || defaultFormats[0]).text,
     },
     methods: {
-      copy: async function () {
+      copy: async function (fmt) {
         let tabs = await browser.tabs.query({active: true, currentWindow: true});
         let tab = tabs[0];
         if (!tab)
           return;
 
-        let formatter = parse(this.format);
+        let formatter = parse(fmt.text);
         let context = {tab};
         let content = await formatter(context);
 
