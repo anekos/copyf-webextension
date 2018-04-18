@@ -1,7 +1,7 @@
 {
   "description": "Copy formatted somthing to clipboard",
   "manifest_version": 2,
-  "name": "Copyf",
+  "name": "copyf",
   "version": "0.0.2",
   "icons": {
     "64": "icon/64.png"
@@ -10,7 +10,7 @@
     "default_icon": {
       "64": "icon/64.png"
     },
-    "default_title": "Copyf",
+    "default_title": "copyf",
     "default_popup": "html/popup.html"
   },
   "content_scripts": [
