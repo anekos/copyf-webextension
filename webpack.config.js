@@ -1,5 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 
 const app = {
@@ -39,7 +40,11 @@ const app = {
       {from: 'src/icon/64.png', to: 'icon'},
       {from: 'src/vendor/material-design-icons/ic_content_copy_black_48px.svg', to: 'icon'},
       {from: 'src/meta/manifest.json'},
-    ], {})
+    ], {}),
+    new ZipPlugin({
+      path: '../',
+      filename: 'copyf.zip'
+    }),
   ],
   resolve: {
     alias: {
