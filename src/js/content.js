@@ -1,17 +1,25 @@
 
 
-
 function main() {
-  browser.runtime.onMessage.addListener(message => {
-    if (message.command === 'selector') {
+  const actions = {
+    selector: (message) => {
       let found = document.querySelector(message.query);
-      return Promise.resolve(found ? found.textContent : '');
-    } else if (message.command === 'attribute') {
+      return found ? found.textContent : '';
+    },
+    attribute: (message) => {
       let found = document.querySelector(message.query);
       if (found)
         found = found.getAttribute(message.attribute);
-      return Promise.resolve(found || '');
-    }
+      return found || '';
+    },
+    selected: (message) => {
+      return window.getSelection().toString();
+    },
+  };
+
+
+  browser.runtime.onMessage.addListener(message => {
+    return Promise.resolve(actions[message.command](message));
   });
 }
 

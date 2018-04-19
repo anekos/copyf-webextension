@@ -6,6 +6,7 @@ import pmap from 'p-map'
 
 import Defaults from './defaults.js'
 import Source from './source.js'
+import Context from './context.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -64,8 +65,7 @@ async function main() {
           return;
 
         let formatter = parse(fmt.text);
-        let context = {tab};
-        let content = await formatter(context);
+        let content = await formatter(Context(tab));
 
         copyToClipboard(content, window.close);
       },
