@@ -34,7 +34,6 @@ async function main() {
       newFormat: async function () {
         this.formats.splice(0, 0, Defaults.newFormat);
 
-        console.log(1);
         JQuery('#format-0 textarea').focus();
         await delay(1);
         JQuery('#format-0 textarea').select();

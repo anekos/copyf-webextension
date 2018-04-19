@@ -67,7 +67,10 @@ async function main() {
         let formatter = parse(fmt.text);
         let content = await formatter(Context(tab));
 
-        copyToClipboard(content, window.close);
+        copyToClipboard(content, async () => {
+          await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
+          window.close();
+        });
       },
       showManager: function () {
         chrome.tabs.create({

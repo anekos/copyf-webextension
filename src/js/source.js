@@ -8,7 +8,6 @@ export default (args) => {
       return context.command('selector', {query: args});
     },
     attribute: context => {
-      console.log(args);
       let [attribute, query] = args.split(/\s+/, 2);
       return context.command('attribute', {query, attribute});
     },

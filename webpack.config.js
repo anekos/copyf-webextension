@@ -7,6 +7,7 @@ const app = {
     popup: './src/js/popup.js',
     manager: './src/js/manager.js',
     content: './src/js/content.js',
+    background: './src/js/background.js',
   },
   mode: 'development',
   output: {
