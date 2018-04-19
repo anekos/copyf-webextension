@@ -9,7 +9,7 @@
     "sign": "web-ext sign --source-dir dist"
   },
   "author": "anekos",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "bootstrap": "^4.0.0",
     "clean-webpack-plugin": "^0.1.19",
