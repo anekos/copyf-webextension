@@ -9,29 +9,62 @@
       [v-cloak] {
         display: none;
       }
+
+      /* http://google.github.io/material-design-icons/#what-are-material-icons- */
+      @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Material Icons'), local('MaterialIcons-Regular'), url(../font/MaterialIcons-Regular.woff2) format('woff2');
+      }
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;  /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+      }
+
+
       @media (min-width: 576px) {
         .card-columns {
           column-count: 2;
         }
       }
-
       @media (min-width: 768px) {
         .card-columns {
           column-count: 3;
         }
       }
-
       @media (min-width: 992px) {
         .card-columns {
           column-count: 4;
         }
       }
-
       @media (min-width: 1200px) {
         .card-columns {
           column-count: 5;
         }
       }
+
+
       input[type="file"] {
         display: block;
         visibility: hidden;
@@ -79,20 +112,25 @@
         <div class="col-xs-12 col-sm-12">
 
           <div class="card-columns">
-            <draggable v-model="formats">
+            <draggable v-model="formats" :options="{handle: '.drag-handle'}">
               <div class="card"
                    v-for="(fmt, index) in formats"
                    :id="'format-' + index">
-                <div class="card-body">
-                  <span class="text-muted small">{{ index + 1 }}</span>
-                  <div class="form-group">
+                <div class="card-header drag-handle d-flex justify-content-between p-2 pl-3">
+                  <i class="material-icons">drag_handle</i>
+                  <span class="align-bottom text-muted small">
+                    {{ index + 1 }}
+                  </span>
+                </div>
+                <div class="card-body p-2">
+                  <div class="form-group mb-1">
                     <input class="form-control"
                            type="text"
                            placeholder="Name (Optional)"
                            @change="saveFormats"
                            v-model="fmt.name">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group mb-2">
                     <textarea class="form-control"
                               type="text"
                               placeholder="Format"
@@ -101,8 +139,10 @@
                               @change="saveFormats"
                               v-model="fmt.text"></textarea>
                   </div>
-                  <button class="btn btn-danger"
-                          @click="formats.splice(index, 1)">Delete</button>
+                  <div class="form-group mb-0 d-flex justify-content-end">
+                    <button class="btn btn-danger btn-sm"
+                            @click="formats.splice(index, 1)">Delete</button>
+                  </div>
                 </div>
               </div>
             </draggable>
