@@ -10,6 +10,13 @@ function qsel(selector) {
   return Array.from(JQuery(selector).get());
 }
 
+function attribute(element, name) {
+  const property = element[name];
+  if (property && typeof property === 'string')
+    return property;
+  return element.getAttribute(name);
+}
+
 
 function main() {
   const actions = {
@@ -18,7 +25,7 @@ function main() {
     },
     attribute: (message) => {
       return qsel(message.query)
-        .map(it => it.getAttribute(message.attribute))
+        .map(it => attribute(it, message.attribute))
         .filter(id);
     },
     selected: (message) => {
