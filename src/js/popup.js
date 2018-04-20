@@ -5,21 +5,12 @@ import DateFormat from 'dateformat'
 import pmap from 'p-map'
 
 import Defaults from './defaults.js'
+import Source from './source.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
 
 async function main() {
-  const source = (args) => ({
-    title: context => context.tab.title,
-    url: context => context.tab.url,
-    date: context => DateFormat(args),
-    selector: async context => {
-      return browser.tabs.sendMessage(context.tab.id, {command: 'selector', query: args});
-    }
-  });
-
-
   function copyToClipboard(text, complete) {
     const once = evt => {
       document.removeEventListener('copy', once, true);
@@ -43,7 +34,7 @@ async function main() {
 
       (() => {
         if (name)
-          return entries.push(source(args)[name] || (_ => '$(' + name + ')'));
+          return entries.push(Source(args)[name] || (_ => '$(' + name + ')'));
         let raw = raw1 || raw2;
         if (raw)
           return entries.push(_ => raw);
