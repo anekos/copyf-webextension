@@ -2,7 +2,7 @@
   "description": "Copy formatted somthing to clipboard",
   "manifest_version": 2,
   "name": "Copyf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icons": {
     "64": "icon/64.png"
   },
