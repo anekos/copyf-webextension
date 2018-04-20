@@ -1,16 +1,25 @@
 
+import JQuery from 'jquery'
+
+
+function id(it) {
+  return it;
+}
+
+function qsel(selector) {
+  return Array.from(JQuery(selector).get());
+}
+
 
 function main() {
   const actions = {
     selector: (message) => {
-      let found = document.querySelector(message.query);
-      return found ? found.textContent : '';
+      return qsel(message.query).map(it => it.textContent).filter(id);
     },
     attribute: (message) => {
-      let found = document.querySelector(message.query);
-      if (found)
-        found = found.getAttribute(message.attribute);
-      return found || '';
+      return qsel(message.query)
+        .map(it => it.getAttribute(message.attribute))
+        .filter(id);
     },
     selected: (message) => {
       return window.getSelection().toString();
