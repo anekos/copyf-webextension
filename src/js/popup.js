@@ -2,11 +2,13 @@
 import Vue from 'vue'
 import Bootstrap from 'bootstrap'
 import DateFormat from 'dateformat'
+import draggable from 'vuedraggable'
 import pmap from 'p-map'
 
 import Defaults from './defaults.js'
 import Source from './source.js'
 import Context from './context.js'
+import Common from './common.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -58,8 +60,14 @@ async function main() {
 
   const app = new Vue({
     el: '#app',
+    components: {
+      draggable,
+    },
     data: {
       formats: formats,
+    },
+    watch: {
+      formats: Common.saveFormats,
     },
     methods: {
       copy: async function (fmt) {

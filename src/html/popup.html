@@ -24,10 +24,13 @@
     <div id="app" class="container" v-cloak>
       <div class="row">
         <div id="buttons" class="card col-sm-12">
-          <button type="button"
-                  class="btn btn-primary btn-block btn-sm"
-                  @click="copy(fmt)"
-                  v-for="fmt in formats">{{ fmt.name || fmt.text }}</button>
+          <draggable v-model="formats" :options="{handle: '.drag-handle'}">
+            <div class="btn btn-primary btn-block btn-sm drag-handle"
+                 @click="copy(fmt)"
+                 v-for="fmt in formats">
+              <span>{{ fmt.name || fmt.text }}</span>
+            </div>
+          </draggable>
         </div>
       </div>
       <div class="row mt-2">

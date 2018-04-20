@@ -4,19 +4,15 @@ import JQuery from 'jquery'
 import Bootstrap from 'bootstrap'
 import delay  from 'timeout-as-promise'
 import draggable from 'vuedraggable'
+
 import Defaults from './defaults.js'
+import Common from './common.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
 
 async function main() {
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
-
-
-  let saveFormats = async function () {
-    console.log('Save formats', JSON.parse(JSON.stringify(this.formats)));
-    browser.storage.sync.set({formats: this.formats})
-  };
 
 
   const app = new Vue({
@@ -28,7 +24,7 @@ async function main() {
       formats: formats,
     },
     watch: {
-      formats: saveFormats,
+      formats: Common.saveFormats,
     },
     methods: {
       newFormat: async function () {
@@ -38,7 +34,7 @@ async function main() {
         await delay(1);
         JQuery('#format-0 textarea').select();
       },
-      saveFormats,
+      saveFormats: Common.saveFormats,
       exportStorage: async function () {
         await this.saveFormats();
         let object = await browser.storage.sync.get();
