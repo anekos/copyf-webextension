@@ -31,11 +31,15 @@ async function main() {
     let entries = [];
 
     while (rest.length) {
-      let [m, name, args, raw1, raw2] = rest.match(/^(?:\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
+      let [m, name1, args1, name2, args2, raw1, raw2] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
+
+      let name = name1 || name2;
 
       (() => {
-        if (name)
+        if (name) {
+          let args = args1 || args2;
           return entries.push(Source(args)[name] || (_ => '$(' + name + ')'));
+        }
         let raw = raw1 || raw2;
         if (raw)
           return entries.push(_ => raw);
