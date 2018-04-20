@@ -80,6 +80,8 @@ async function main() {
         let content = await formatter(Context(tab));
 
         copyToClipboard(content, async () => {
+          if (100 < content.length)
+            content = content.slice(0, 50) + ' ... ' + content.slice(-50);
           await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
           window.close();
         });
