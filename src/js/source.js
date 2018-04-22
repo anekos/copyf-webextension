@@ -20,5 +20,8 @@ export default (args) => {
     selected: context => {
       return context.command('selected', {});
     },
+    'const': context => {
+      return args;
+    },
   }
 }

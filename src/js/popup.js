@@ -3,12 +3,11 @@ import Vue from 'vue'
 import Bootstrap from 'bootstrap'
 import DateFormat from 'dateformat'
 import draggable from 'vuedraggable'
-import pmap from 'p-map'
 
-import Defaults from './defaults.js'
-import Source from './source.js'
-import Context from './context.js'
 import Common from './common.js'
+import Context from './context.js'
+import Defaults from './defaults.js'
+import Parse from './parse.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -25,33 +24,6 @@ async function main() {
 
     document.addEventListener('copy', once, true);
     document.execCommand('copy');
-  }
-
-
-  function parse(fmt) {
-    let rest = fmt;
-    let entries = [];
-
-    while (rest.length) {
-      let [m, name1, args1, name2, args2, raw1, raw2] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
-
-      let name = name1 || name2;
-
-      (() => {
-        if (name) {
-          let args = args1 || args2;
-          return entries.push(Source(args)[name] || (_ => '$(' + name + ')'));
-        }
-        let raw = raw1 || raw2;
-        if (raw)
-          return entries.push(_ => raw);
-        throw 'Failed to parse: ' + m;
-      })();
-
-      rest = RegExp.rightContext;
-    }
-
-    return context => pmap(entries, (entry) => entry(context), {concurrency: 2}).then(it => it.join(''));
   }
 
 
@@ -76,7 +48,7 @@ async function main() {
         if (!tab)
           return;
 
-        let formatter = parse(fmt.text);
+        let formatter = Parse(fmt.text);
         let content = await formatter(Context(tab));
 
         copyToClipboard(content, async () => {

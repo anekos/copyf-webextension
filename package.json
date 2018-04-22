@@ -11,6 +11,7 @@
   "author": "anekos",
   "license": "MIT",
   "devDependencies": {
+    "amazon-helpers": "^0.2.0",
     "bootstrap": "^4.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
@@ -20,6 +21,7 @@
     "p-map": "^1.2.0",
     "popper.js": "^1.14.3",
     "timeout-as-promise": "^1.0.0",
+    "url-parse": "^1.4.0",
     "vue": "^2.5.16",
     "vue-cli": "^2.9.3",
     "vuedraggable": "^2.16.0",
