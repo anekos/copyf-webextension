@@ -10,6 +10,7 @@ import shrink from './shrink.js'
 const Filters = {
   shrink,
   html,
+  trim: it => it.trim(),
 };
 
 
