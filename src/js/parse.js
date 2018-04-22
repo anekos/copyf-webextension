@@ -1,5 +1,6 @@
 
 import pmap from 'p-map'
+import html from 'escape-html'
 
 import Source from './source.js'
 import shrink from './shrink.js'
@@ -8,6 +9,7 @@ import shrink from './shrink.js'
 
 const Filters = {
   shrink,
+  html,
 };
 
 
@@ -54,5 +56,5 @@ export default (fmt) => {
     })();
   }
 
-  return context => pmap(entries, (entry) => entry(context), {concurrency: 2}).then(it => it.join(''));
+  return context => pmap(entries, entry => entry(context), {concurrency: 2}).then(it => it.join(''));
 }
