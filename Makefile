@@ -10,9 +10,8 @@ watch:
 
 build:
 	npm run build
-	git archive --format=zip HEAD > copyf.src.zip
 
-release: build
+release:
 	./script/release
 
 sign:

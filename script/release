@@ -7,12 +7,59 @@ set -euC
 # PS4='$LINENO: '
 # set -x
 
+# Check working directory {{{
+
 if [ -n "$(git status --porcelain)" ]
 then
   echo 'Working directory is not clean' 2>&1
   exit 1
 fi
 
-version="$(jq -r '.version' < dist/manifest.json)"
-git tag "v$version"
+# }}}
+
+# File path {{{
+
+MANIFEST=src/meta/manifest.json
+PACKAGE=package.json
+
+# }}}
+
+# Update version {{{
+
+current_version="$(jq -r '.version' < src/meta/manifest.json)"
+
+build="${current_version#*\.*\.}"
+major_minor="${current_version%\.*}"
+next_version="${major_minor}.$(( build + 1 ))"
+
+echo "Current version is $current_version"
+echo -n "Next version ($next_version): "
+
+read -r input_version
+
+if [ -n "$input_version" ]
+then
+  next_version="$input_version"
+fi
+
+echo "Update version: $next_version"
+
+jq --arg version "$next_version" '.version = $version' < "$MANIFEST" | sponge "$MANIFEST"
+jq --arg version "$next_version" '.version = $version' < "$PACKAGE" | sponge "$PACKAGE"
+
+# }}}
+
+# Build {{{
+
+npm run build
+
+# }}}
+
+# Git {{{
+
+git commit -m 'version++' "$MANIFEST" "$PACKAGE"
+git archive --format=zip HEAD >| copyf.src.zip
+git tag "v$next_version"
 git push --tags
+
+# }}}
