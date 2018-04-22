@@ -181,124 +181,138 @@
                     Modifiers
                   </h2>
                 </li>
+                <li class="nav-item">
+                  <h2 class="nav-link"
+                      data-toggle="tab"
+                      href="#help-contact">
+                    Contact
+                  </h2>
+                </li>
               </ul>
 
-              <div class="tab-content">
-                <div class="tab-pane active" id="help-variables">
-                  <table class="table table-bordered">
-                    <tr>
-                      <th>Name</th>
-                      <th>Option</th>
-                      <th>Example</th>
-                      <th>Descrption</th>
-                    </tr>
-                    <tr>
-                      <td>title</td>
-                      <td>-</td>
-                      <td>$(title)</td>
-                      <td>Page title</td>
-                    </tr>
-                    <tr>
-                      <td>url</td>
-                      <td>-</td>
-                      <td>$(url)</td>
-                      <td>Page URL</td>
-                    </tr>
-                    <tr>
-                      <td>date</td>
-                      <td>DATE_TIME_FORMAT</td>
-                      <td>$(date yyyy/mm/dd hh:MM:ss)</td>
-                      <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
-                    </tr>
-                    <tr>
-                      <td>selector</td>
-                      <td>JQUERY_SELECTOR</td>
-                      <td>$(selector div.container &gt; h1.header)</td>
-                      <td>Content text of selected with the JQuery selector</td>
-                    </tr>
-                    <tr>
-                      <td>property</td>
-                      <td>PROPERTY_NAME SPACE JQUERY_SELECTOR</td>
-                      <td>$(property src content &gt; img.banner)</td>
-                      <td>Property text of found element by the JQuery selector</td>
-                    </tr>
-                    <tr>
-                      <td>attribute</td>
-                      <td>ATTRIBUTE_NAME SPACE JQUERY_SELECTOR</td>
-                      <td>$(attribute src content &gt;> img.banner)</td>
-                      <td>Attribute text of found element by the JQuery selector</td>
-                    </tr>
-                    <tr>
-                      <td>selected</td>
-                      <td>-</td>
-                      <td>Selected (highlighted) text</td>
-                    </tr>
-                    <tr>
-                      <td>const</td>
-                      <td>TEXT</td>
-                      <td>$(const test)</td>
-                      <td>Constant text (for test)</td>
-                    </tr>
-                  </table>
-                  <div>
-                    <em>You can use `${...}` instead of `$(...)`</em>
+              <div class="card">
+                <div class="tab-content card-body">
+                  <div class="tab-pane active" id="help-variables">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Option</th>
+                        <th>Example</th>
+                        <th>Descrption</th>
+                      </tr>
+                      <tr>
+                        <td>title</td>
+                        <td>-</td>
+                        <td>$(title)</td>
+                        <td>Page title</td>
+                      </tr>
+                      <tr>
+                        <td>url</td>
+                        <td>-</td>
+                        <td>$(url)</td>
+                        <td>Page URL</td>
+                      </tr>
+                      <tr>
+                        <td>date</td>
+                        <td>DATE_TIME_FORMAT</td>
+                        <td>$(date yyyy/mm/dd hh:MM:ss)</td>
+                        <td>Formatted date time (<a href="https://www.npmjs.com/package/dateformat#usage" target="_blank">see</a>)</td>
+                      </tr>
+                      <tr>
+                        <td>selector</td>
+                        <td>JQUERY_SELECTOR</td>
+                        <td>$(selector div.container &gt; h1.header)</td>
+                        <td>Content text of selected with the JQuery selector</td>
+                      </tr>
+                      <tr>
+                        <td>property</td>
+                        <td>PROPERTY_NAME SPACE JQUERY_SELECTOR</td>
+                        <td>$(property src content &gt; img.banner)</td>
+                        <td>Property text of found element by the JQuery selector</td>
+                      </tr>
+                      <tr>
+                        <td>attribute</td>
+                        <td>ATTRIBUTE_NAME SPACE JQUERY_SELECTOR</td>
+                        <td>$(attribute src content &gt;> img.banner)</td>
+                        <td>Attribute text of found element by the JQuery selector</td>
+                      </tr>
+                      <tr>
+                        <td>selected</td>
+                        <td>-</td>
+                        <td>Selected (highlighted) text</td>
+                      </tr>
+                      <tr>
+                        <td>const</td>
+                        <td>TEXT</td>
+                        <td>$(const test)</td>
+                        <td>Constant text (for test)</td>
+                      </tr>
+                    </table>
+                    <div>
+                      <em>You can use `${...}` instead of `$(...)`</em>
+                    </div>
                   </div>
-                </div>
 
-                <div class="tab-pane" id="help-modifiers">
-                  <p>You can use these modifiers to convert fetched text</p>
-                  <table class="table table-bordered">
-                    <tr>
-                      <th>Name</th>
-                      <th>Example</th>
-                      <th>Descrption</th>
-                    </tr>
-                    <tr>
-                      <td>shrink</td>
-                      <td>$(property|shrink href a)</td>
-                      <td>
-                        <p>Shrinked URL</p>
-                        <p>
+                  <div class="tab-pane" id="help-modifiers">
+                    <p>You can use these modifiers to convert fetched text</p>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Example</th>
+                        <th>Descrption</th>
+                      </tr>
+                      <tr>
+                        <td>shrink</td>
+                        <td>$(property|shrink href a)</td>
+                        <td>
+                          <p>Shrinked URL</p>
+                          <p>
                           <h5>Supported sites</h5>
                           <ul>
                             <li>Amazon</li>
                             <li>Aliexpress</li>
                           </ul>
-                        </p>
-                        <p>
+                          </p>
+                          <p>
                           <h5>e.g)</h5>
                           <p>
                           https://www.amazon.co.jp/LONG_LONG_ANNOY_TEXT/dp/B01ABC2DEF/<br>
                           ↓<br>
                           http://www.amazon.co.jp/dp/B01ABC2DEF
                           </p>
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>html</td>
-                      <td>$(selector|html #main &gt; .content)</td>
-                      <td>HTML Escaped</td>
-                    </tr>
-                    <tr>
-                      <td>trim</td>
-                      <td>$(selector|trim #main &gt; .content)</td>
-                      <td>Trimmed text</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>html</td>
+                        <td>$(selector|html #main &gt; .content)</td>
+                        <td>HTML Escaped</td>
+                      </tr>
+                      <tr>
+                        <td>trim</td>
+                        <td>$(selector|trim #main &gt; .content)</td>
+                        <td>Trimmed text</td>
+                      </tr>
+                    </table>
+                  </div>
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <div class="tab-pane" id="help-contact">
+                      <a class="btn btn-primary" target="_blank" href="https://twitter.com/anekos">Twitter</a>
+                      <a class="btn btn-primary" target="_blank" href="https://github.com/anekos/">Github</a>
+                      <a class="btn btn-primary" target="_blank" href="https://peing.net/anekos/">Peing</a>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
+
+
       </div>
-
-
-    </div>
-    <script src="/js/manager.js"></script>
+      <script src="/js/manager.js"></script>
   </body>
 </html>
