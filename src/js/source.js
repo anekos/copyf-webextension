@@ -5,6 +5,7 @@ function join(ary) {
 }
 
 
+
 export default (args) => {
   return {
     title: context => context.tab.title,
@@ -16,6 +17,10 @@ export default (args) => {
     attribute: context => {
       let [attribute, query] = args.split(/\s+/, 2);
       return context.command('attribute', {query, attribute}).then(join);
+    },
+    property: context => {
+      let [property, query] = args.split(/\s+/, 2);
+      return context.command('property', {query, property}).then(join);
     },
     selected: context => {
       return context.command('selected', {});

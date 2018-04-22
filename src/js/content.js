@@ -11,32 +11,23 @@ function qsel(selector) {
 }
 
 function attribute(element, name) {
-  const property = element[name];
-  if (property && typeof property === 'string')
-    return property;
-  return element.getAttribute(name);
+  return element.getAttribute(name) || '';
+}
+
+function property(element, name) {
+  return element[name] || '';
 }
 
 
 function main() {
   const actions = {
-    selector: (message) => {
-      return qsel(message.query).map(it => it.textContent).filter(id);
-    },
-    attribute: (message) => {
-      return qsel(message.query)
-        .map(it => attribute(it, message.attribute))
-        .filter(id);
-    },
-    selected: (message) => {
-      return window.getSelection().toString();
-    },
+    selector: message => qsel(message.query).map(it => it.textContent).filter(id),
+    attribute: message => qsel(message.query).map(it => attribute(it, message.attribute)).filter(id),
+    property: message => qsel(message.query).map(it => property(it, message.property)).filter(id),
+    selected: message => [window.getSelection().toString()],
   };
 
-
-  browser.runtime.onMessage.addListener(message => {
-    return Promise.resolve(actions[message.command](message));
-  });
+  browser.runtime.onMessage.addListener(message => Promise.resolve(actions[message.command](message)));
 }
 
 
