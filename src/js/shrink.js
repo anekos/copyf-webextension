@@ -26,7 +26,7 @@ const shrinkers = [
 ];
 
 
-export default (url) => {
+export default url => {
   let u = new URL(url);
 
   for (let s of shrinkers) {

@@ -1,9 +1,9 @@
 
-import pmap from 'p-map'
 import html from 'escape-html'
+import pmap from 'p-map'
 
-import Source from './source.js'
-import shrink from './shrink.js'
+import Source from './source'
+import shrink from './shrink'
 
 
 
@@ -33,7 +33,7 @@ function parseFilter(name) {
 
 
 
-export default (fmt) => {
+export default fmt => {
   let rest = fmt;
   let entries = [];
 

@@ -1,13 +1,13 @@
 
-import Vue from 'vue'
-import JQuery from 'jquery'
 import Bootstrap from 'bootstrap'
+import JQuery from 'jquery'
+import Vue from 'vue'
 import delay  from 'timeout-as-promise'
 import draggable from 'vuedraggable'
 
-import Defaults from './defaults.js'
-import Common from './common.js'
-import Polyfill from './polyfill.js'
+import Common from './common'
+import Defaults from './defaults'
+import Polyfill from './polyfill'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -28,24 +28,14 @@ async function main() {
       formats: Common.saveFormats,
     },
     methods: {
-      newFormat: async function () {
-        this.formats.splice(0, 0, Defaults.newFormat);
-
-        JQuery('#format-0 textarea').focus();
-        await delay(1);
-        JQuery('#format-0 textarea').select();
-      },
-      saveFormats: Common.saveFormats,
+      click: () => JQuery('input[type="file"]').click(),
       exportStorage: async function () {
         await this.saveFormats();
         let object = await browser.storage.sync.get();
         let json = JSON.stringify(object, null, '  ');
         window.open('data:application/json,' + encodeURIComponent(json));
       },
-      click: function () {
-        JQuery('input[type="file"]').click();
-      },
-      importStorage: async function (e) {
+      importStorage: async (e) => {
         let file = e.target.files[0];
         if (!file)
           return;
@@ -56,7 +46,15 @@ async function main() {
           document.location.href = document.location.href;
         };
         reader.readAsText(file);
-      }
+      },
+      newFormat: async function () {
+        this.formats.splice(0, 0, Defaults.newFormat);
+
+        JQuery('#format-0 textarea').focus();
+        await delay(1);
+        JQuery('#format-0 textarea').select();
+      },
+      saveFormats: Common.saveFormats,
     },
   });
 

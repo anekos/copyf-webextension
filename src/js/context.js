@@ -1,8 +1,8 @@
 
-export default (tab) => {
+export default tab => {
   return {
     tab,
-    command: function (name, options) {
+    command: (name, options) => {
       let params = Object.assign({command: name}, options);
       return browser.tabs.sendMessage(tab.id, params);
     },

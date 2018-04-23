@@ -35,9 +35,9 @@ function generate() {
 
   return {
     storage: {
-      sync: modifyStorage(chrome.storage.sync),
       local: modifyStorage(chrome.storage.local),
       managed: modifyStorage(chrome.storage.managed),
+      sync: modifyStorage(chrome.storage.sync),
     },
     tabs: modifyObject(chrome.tabs, ['query', 'sendMessage']),
     runtime: modifyObject(chrome.runtime, ['sendMessage']),

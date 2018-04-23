@@ -1,16 +1,17 @@
 
-import Vue from 'vue'
 import Bootstrap from 'bootstrap'
 import DateFormat from 'dateformat'
+import Vue from 'vue'
 import draggable from 'vuedraggable'
 
-import Common from './common.js'
-import Context from './context.js'
-import Defaults from './defaults.js'
-import Parse from './parse.js'
-import Polyfill from './polyfill.js'
+import Common from './common'
+import Context from './context'
+import Defaults from './defaults'
+import Parse from './parse'
+import Polyfill from './polyfill'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
+
 
 
 async function main() {
@@ -43,7 +44,7 @@ async function main() {
       formats: Common.saveFormats,
     },
     methods: {
-      copy: async function (fmt) {
+      copy: async fmt => {
         let tabs = await browser.tabs.query({active: true, currentWindow: true});
         let tab = tabs[0];
         if (!tab)
@@ -60,7 +61,7 @@ async function main() {
           window.close();
         });
       },
-      showManager: function () {
+      showManager: () => {
         chrome.tabs.create({
           url: chrome.extension.getURL('html/manager.html'),
           active: true,

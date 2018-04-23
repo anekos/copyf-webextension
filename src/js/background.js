@@ -11,7 +11,8 @@ function main() {
         iconUrl: chrome.extension.getURL('icon/ic_content_copy_black_48px.svg'),
         title: 'copyf',
         message: message.content,
-      });
+      }
+    );
 
     return sendResponse(true);
   });

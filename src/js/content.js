@@ -1,6 +1,8 @@
 
 import JQuery from 'jquery'
-import Polyfill from './polyfill.js'
+
+import Polyfill from './polyfill'
+
 
 
 function id(it) {
