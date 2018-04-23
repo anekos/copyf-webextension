@@ -1,6 +1,6 @@
 
 
-function generate() {
+function generateBrowser() {
   function modifyFunction(f) {
     return (...args) => {
       return new Promise((resolve, reject) => {
@@ -45,9 +45,26 @@ function generate() {
 }
 
 
-const Polyfill = generate();
+function generateGetBytesInUse(storage) {
+  return async (keys) => {
+    let data = await storage.get(keys);
+    return Object.keys(data).reduce(
+      (acc, it) => acc + (it + JSON.stringify(data[it])).length,
+      0
+    );
+  };
+}
 
-export default Polyfill;
+
+
 
 if (!window.browser)
-  window.browser = Polyfill;
+  window.browser = generateBrowser();
+
+
+['local', 'sync', 'managed'].forEach(name => {
+  let storage = window.browser.storage[name];
+  if (storage.getBytesInUse)
+    return;
+  storage.getBytesInUse = generateGetBytesInUse(storage);
+});

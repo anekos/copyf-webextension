@@ -7,7 +7,7 @@ import draggable from 'vuedraggable'
 
 import Common from './common'
 import Defaults from './defaults'
-import Polyfill from './polyfill'
+import './polyfill'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -58,8 +58,12 @@ async function main() {
     },
   });
 
+
   window.jq = JQuery;
   window.copyf = app;
+
+  let storageSize = await browser.storage.sync.getBytesInUse();
+  console.info('Stroage bytes in use', storageSize);
 }
 
 
