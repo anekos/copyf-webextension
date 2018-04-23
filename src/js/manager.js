@@ -2,6 +2,7 @@
 import Bootstrap from 'bootstrap'
 import JQuery from 'jquery'
 import Vue from 'vue'
+import dateFormat from 'dateformat'
 import delay  from 'timeout-as-promise'
 import draggable from 'vuedraggable'
 
@@ -28,12 +29,18 @@ async function main() {
       formats: Common.saveFormats,
     },
     methods: {
-      clickImport: () => JQuery('input[type="file"]').click(),
-      exportStorage: async function () {
+      clickImport : () => JQuery('input[type="file"]').click(),
+      exportStorage: async function (e) {
         await this.saveFormats();
+
         let object = await browser.storage.sync.get();
         let json = JSON.stringify(object, null, '  ');
-        window.open('data:application/json,' + encodeURIComponent(json));
+
+        let a = e.target.querySelector('a');
+        a.setAttribute('download', 'copyf.' + dateFormat('yyyymmdd-HHMMss') + '.json');
+        a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
+
+        a.click();
       },
       importStorage: async (e) => {
         let file = e.target.files[0];
