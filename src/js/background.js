@@ -1,8 +1,8 @@
 
 function main() {
-  browser.runtime.onMessage.addListener(message => {
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.command !== 'notify')
-      return;
+      return sendResponse(false);
 
     chrome.notifications.create(
       'copyf',
@@ -12,9 +12,10 @@ function main() {
         title: 'copyf',
         message: message.content,
       });
+
+    return sendResponse(true);
   });
 }
 
 
 main();
-

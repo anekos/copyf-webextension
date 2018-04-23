@@ -7,6 +7,7 @@ import draggable from 'vuedraggable'
 
 import Defaults from './defaults.js'
 import Common from './common.js'
+import Polyfill from './polyfill.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 

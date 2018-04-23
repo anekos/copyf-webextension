@@ -8,6 +8,7 @@ import Common from './common.js'
 import Context from './context.js'
 import Defaults from './defaults.js'
 import Parse from './parse.js'
+import Polyfill from './polyfill.js'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -50,6 +51,7 @@ async function main() {
 
         let formatter = Parse(fmt.text);
         let content = await formatter(Context(tab));
+        console.log('Copy content' + content);
 
         copyToClipboard(content, async () => {
           if (100 < content.length)

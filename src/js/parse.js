@@ -57,5 +57,5 @@ export default (fmt) => {
     })();
   }
 
-  return context => pmap(entries, entry => entry(context), {concurrency: 2}).then(it => it.join(''));
+  return context => pmap(entries, entry => entry(context), {concurrency: 10}).then(it => it.join(''));
 }
