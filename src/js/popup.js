@@ -31,12 +31,18 @@ async function main() {
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
 
 
+  let tabs = await browser.tabs.query({active: true, currentWindow: true});
+  let tab = tabs[0];
+  let available = tab && /^https?:/.test(tab.url);
+
+
   const app = new Vue({
     el: '#app',
     components: {
       draggable,
     },
     data: {
+      available,
       formats: formats,
     },
     watch: {
@@ -44,11 +50,6 @@ async function main() {
     },
     methods: {
       copy: async fmt => {
-        let tabs = await browser.tabs.query({active: true, currentWindow: true});
-        let tab = tabs[0];
-        if (!tab)
-          return;
-
         let formatter = Parse(fmt.text);
         let content = await formatter(Context(tab));
         console.log('Copy content' + content);

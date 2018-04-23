@@ -23,7 +23,9 @@
   <body>
     <div id="app" class="container" v-cloak>
       <div class="row">
-        <div id="buttons" class="card col-sm-12">
+        <div id="buttons"
+             class="card col-sm-12"
+             v-if="available">
           <draggable v-model="formats" :options="{handle: '.drag-handle'}">
             <div class="btn btn-primary btn-block btn-sm drag-handle"
                  @click="copy(fmt)"
@@ -31,6 +33,11 @@
               <span>{{ fmt.name || fmt.text }}</span>
             </div>
           </draggable>
+        </div>
+        <div id="buttons"
+          class="card col-sm-12"
+          v-else>
+          <em>Not available on this tab</em>
         </div>
       </div>
       <div class="row mt-2">
