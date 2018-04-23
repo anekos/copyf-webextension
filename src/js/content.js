@@ -1,5 +1,6 @@
 
 import JQuery from 'jquery'
+import Polyfill from './polyfill.js'
 
 
 function id(it) {
@@ -19,6 +20,7 @@ function property(element, name) {
 }
 
 
+
 function main() {
   const actions = {
     selector: message => qsel(message.query).map(it => it.textContent).filter(id),
@@ -27,7 +29,7 @@ function main() {
     selected: message => [window.getSelection().toString()],
   };
 
-  browser.runtime.onMessage.addListener(message => Promise.resolve(actions[message.command](message)));
+  chrome.runtime.onMessage.addListener((message, sender, callback) => callback(actions[message.command](message)))
 }
 
 
