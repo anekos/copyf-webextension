@@ -11,6 +11,7 @@ const Modifiers = {
   shrink,
   html,
   trim: it => it.trim(),
+  json: it => JSON.stringify(it),
 };
 
 
