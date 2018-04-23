@@ -1,13 +1,15 @@
 
 import Bootstrap from 'bootstrap'
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 import draggable from 'vuedraggable'
 
+import './polyfill'
 import Common from './common'
 import Context from './context'
 import Defaults from './defaults'
 import Parse from './parse'
-import './polyfill'
+import i18n from './i18n'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -38,6 +40,7 @@ async function main() {
 
   const app = new Vue({
     el: '#app',
+    i18n,
     components: {
       draggable,
     },

@@ -6,9 +6,10 @@ import dateFormat from 'dateformat'
 import delay  from 'timeout-as-promise'
 import draggable from 'vuedraggable'
 
+import './polyfill'
 import Common from './common'
 import Defaults from './defaults'
-import './polyfill'
+import i18n from './i18n'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
@@ -19,6 +20,7 @@ async function main() {
 
   const app = new Vue({
     el: '#app',
+    i18n,
     components: {
       draggable,
     },

@@ -97,19 +97,19 @@
           <input type="file"
                  @change="importStorage">
           <button class="btn btn-primary"
-                  @click="newFormat">Add a format</button>
+                  @click="newFormat">{{ $t('manager.button.addFormat') }}</button>
           <button class="btn btn-primary"
                   @click="exportStorage">
-            Export
+            {{ $t('manager.button.export') }}
             <a href="" target="_blank"></a>
           </button>
           <div class="btn btn-primary" @click="clickImport">
-            Import
+            {{ $t('manager.button.import') }}
           </div>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help">
-            Help
+            {{ $t('manager.button.help') }}
           </button>
-          <span>Drag and drop to order entries.</span>
+          <span>{{ $t('manager.note.order') }}</span>
         </div>
       </div>
 
@@ -146,7 +146,7 @@
                   </div>
                   <div class="form-group mb-0 d-flex justify-content-end">
                     <button class="btn btn-danger btn-sm"
-                            @click="formats.splice(index, 1)">Delete</button>
+                            @click="formats.splice(index, 1)">{{ $t('manager.delete') }}</button>
                   </div>
                 </div>
               </div>
@@ -161,7 +161,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Help</h5>
+              <h5 class="modal-title" id="exampleModalLabel">{{ $t('manager.help.title') }}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -173,21 +173,21 @@
                   <h2 class="nav-link active"
                       data-toggle="tab"
                       href="#help-variables">
-                    Variables
+                    {{ $t('manager.help.variables') }}
                   </h2>
                 </li>
                 <li class="nav-item">
                   <h2 class="nav-link"
                       data-toggle="tab"
                       href="#help-modifiers">
-                    Modifiers
+                    {{ $t('manager.help.modifiers') }}
                   </h2>
                 </li>
                 <li class="nav-item">
                   <h2 class="nav-link"
                       data-toggle="tab"
                       href="#help-contact">
-                    Contact
+                    {{ $t('manager.help.contacts') }}
                   </h2>
                 </li>
               </ul>
@@ -197,10 +197,10 @@
                   <div class="tab-pane active" id="help-variables">
                     <table class="table table-bordered">
                       <tr>
-                        <th>Name</th>
-                        <th>Option</th>
-                        <th>Example</th>
-                        <th>Descrption</th>
+                        <th>{{ $t('manager.help.name') }}</th>
+                        <th>{{ $t('manager.help.option') }}</th>
+                        <th>{{ $t('manager.help.example') }}</th>
+                        <th>{{ $t('manager.help.description') }}</th>
                       </tr>
                       <tr>
                         <td>title</td>
@@ -251,17 +251,17 @@
                       </tr>
                     </table>
                     <div>
-                      <em>You can use `${...}` instead of `$(...)`</em>
+                      <em>{{ $t('manager.help.alternativeParen') }}</em>
                     </div>
                   </div>
 
                   <div class="tab-pane" id="help-modifiers">
-                    <p>You can use these modifiers to convert fetched text</p>
+                    <p>{{ $t('manager.help.modifierNote') }}</p>
                     <table class="table table-bordered">
                       <tr>
-                        <th>Name</th>
-                        <th>Example</th>
-                        <th>Descrption</th>
+                        <th>{{ $t('manager.help.name') }}</th>
+                        <th>{{ $t('manager.help.example') }}</th>
+                        <th>{{ $t('manager.help.description') }}</th>
                       </tr>
                       <tr>
                         <td>shrink</td>

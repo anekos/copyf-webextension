@@ -37,13 +37,13 @@
         <div id="buttons"
           class="card col-sm-12"
           v-else>
-          <em>Not available on this tab</em>
+          <em>{{ $t('popup.notAvailableTab') }}</em>
         </div>
       </div>
       <div class="row mt-2">
         <button type="button"
                 class="btn btn-secodary btn-block mb-2"
-                @click="showManager">Manage formats</button>
+                @click="showManager">{{ $t('popup.openManager') }}</button>
       </div>
     </div>
     <script src="/js/popup.js"></script>
