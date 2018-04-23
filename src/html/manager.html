@@ -69,7 +69,7 @@
       }
 
       input[type="file"] {
-        display: block;
+        display: inline;
         visibility: hidden;
         width: 0;
         height: 0;
@@ -94,14 +94,13 @@
 
       <div class="row mt-2">
         <div class="col-xs-12 col-sm-12">
+          <input type="file"
+                 @change="importStorage">
           <button class="btn btn-primary"
                   @click="newFormat">Add a format</button>
           <button class="btn btn-primary"
                   @click="exportStorage">Export</button>
-          <div class="btn btn-primary"
-               @click="click">
-            <input type="file"
-                   @change="importStorage">
+          <div class="btn btn-primary" @click="clickImport">
             Import
           </div>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help">

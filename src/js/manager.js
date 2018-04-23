@@ -28,7 +28,7 @@ async function main() {
       formats: Common.saveFormats,
     },
     methods: {
-      click: () => JQuery('input[type="file"]').click(),
+      clickImport: () => JQuery('input[type="file"]').click(),
       exportStorage: async function () {
         await this.saveFormats();
         let object = await browser.storage.sync.get();
