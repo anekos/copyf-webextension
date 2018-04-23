@@ -1,7 +1,7 @@
 
 import JQuery from 'jquery'
 
-import Polyfill from './polyfill'
+import './polyfill'
 
 
 

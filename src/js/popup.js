@@ -8,7 +8,7 @@ import Common from './common'
 import Context from './context'
 import Defaults from './defaults'
 import Parse from './parse'
-import Polyfill from './polyfill'
+import './polyfill'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
