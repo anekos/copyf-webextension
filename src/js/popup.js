@@ -1,6 +1,5 @@
 
 import Bootstrap from 'bootstrap'
-import DateFormat from 'dateformat'
 import Vue from 'vue'
 import draggable from 'vuedraggable'
 
