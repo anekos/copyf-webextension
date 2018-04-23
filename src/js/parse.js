@@ -7,23 +7,23 @@ import shrink from './shrink'
 
 
 
-const Filters = {
+const Modifiers = {
   shrink,
   html,
   trim: it => it.trim(),
 };
 
 
-function parseFilter(name) {
+function parseModifier(name) {
   let parts = name.split('|');
 
   if (parts.length <= 1)
     return [name, it => it];
 
-  let entries = parts.slice(1).map(it => Filters[it]);
+  let entries = parts.slice(1).map(it => Modifiers[it]);
   let invalids = entries.filter(it => !it);
   if (0 < invalids.length)
-    throw 'Invalid filter name: ' + invalids.join('|');
+    throw 'Invalid modifier name: ' + invalids.join('|');
 
   return [
     parts[0],
@@ -45,10 +45,10 @@ export default fmt => {
 
     (() => {
       if (name) {
-        let [_name, filter] = parseFilter(name);
+        let [_name, modifier] = parseModifier(name);
         let args = args1 || args2;
         let source = Source(args)[_name];
-        return entries.push(source ? (it => filter(source(it))) : (_ => '$(' + name + ')'));
+        return entries.push(source ? (it => modifier(source(it))) : (_ => '$(' + name + ')'));
       }
       let raw = raw1 || raw2;
       if (raw)
