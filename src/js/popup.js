@@ -37,6 +37,7 @@ async function main() {
   let tab = tabs[0];
   let available = tab && /^https?:/.test(tab.url);
 
+  let context = Context(tab);
 
   const app = new Vue({
     el: '#app',
@@ -54,7 +55,7 @@ async function main() {
     methods: {
       copy: async fmt => {
         let formatter = Parse(fmt.text);
-        let content = await formatter(Context(tab));
+        let content = await formatter(context);
         console.log('Copy content' + content);
 
         copyToClipboard(content, async () => {
@@ -71,6 +72,10 @@ async function main() {
         });
         window.close();
       },
+    },
+    mounted: function () {
+      if (this.available)
+        context.command('ping', {}).then(null, () => this.available = false);
     },
   });
 
