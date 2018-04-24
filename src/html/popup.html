@@ -24,20 +24,15 @@
     <div id="app" class="container" v-cloak>
       <div class="row">
         <div id="buttons"
-             class="card col-sm-12"
-             v-if="available">
+             class="card col-sm-12">
           <draggable v-model="formats" :options="{handle: '.drag-handle'}">
-            <div class="btn btn-primary btn-block btn-sm drag-handle"
+            <button class="btn btn-primary btn-block btn-sm drag-handle"
+                 :disabled="!available && parse(fmt.text).useContent"
                  @click="copy(fmt)"
                  v-for="fmt in formats">
               <span>{{ fmt.name || fmt.text }}</span>
-            </div>
+            </button>
           </draggable>
-        </div>
-        <div id="buttons"
-          class="card col-sm-12"
-          v-else>
-          <em>{{ $t('popup.notAvailableTab') }}</em>
         </div>
       </div>
       <div class="row mt-2">

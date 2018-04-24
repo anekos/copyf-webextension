@@ -33,6 +33,7 @@ function main() {
   };
 
   chrome.runtime.onMessage.addListener((message, sender, callback) => callback(actions[message.command](message)))
+  browser.runtime.sendMessage('pong');
 }
 
 main();

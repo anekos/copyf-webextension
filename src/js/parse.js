@@ -37,6 +37,7 @@ function parseModifier(name) {
 export default fmt => {
   let rest = fmt;
   let entries = [];
+  let useContent = false;
 
   while (rest.length) {
     let [m, name1, args1, name2, args2, raw1, raw2] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
@@ -49,6 +50,8 @@ export default fmt => {
         let [_name, modifier] = parseModifier(name);
         let args = args1 || args2;
         let source = Source(args)[_name];
+        console.log(source, source.useContent);
+        useContent = useContent || source.useContent;
         return entries.push(source ? (it => modifier(source(it))) : (_ => '$(' + name + ')'));
       }
       let raw = raw1 || raw2;
@@ -58,5 +61,8 @@ export default fmt => {
     })();
   }
 
-  return context => pmap(entries, entry => entry(context), {concurrency: 10}).then(it => it.join(''));
+  let result = context => pmap(entries, entry => entry(context), {concurrency: 10}).then(it => it.join(''));
+  result.useContent = useContent;
+
+  return result;
 }

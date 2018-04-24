@@ -29,13 +29,17 @@ async function main() {
     document.execCommand('copy');
   }
 
+  function onCheckAvailability(message) {
+    if (message === 'pong')
+      app.available = true;
+  }
+
 
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
 
 
   let tabs = await browser.tabs.query({active: true, currentWindow: true});
   let tab = tabs[0];
-  let available = tab && /^https?:/.test(tab.url);
 
   let context = Context(tab);
 
@@ -46,13 +50,14 @@ async function main() {
       draggable,
     },
     data: {
-      available,
+      available: false,
       formats: formats,
     },
     watch: {
       formats: Common.saveFormats,
     },
     methods: {
+      parse: Parse,
       copy: async fmt => {
         let formatter = Parse(fmt.text);
         let content = await formatter(context);
@@ -73,11 +78,10 @@ async function main() {
         window.close();
       },
     },
-    mounted: function () {
-      if (this.available)
-        context.command('ping', {}).then(null, () => this.available = false);
-    },
   });
+
+  browser.tabs.sendMessage(context.tab.id, {command: 'ping'}).then(onCheckAvailability);
+  chrome.runtime.onMessage.addListener(onCheckAvailability);
 
   window.copyf = app;
 }
