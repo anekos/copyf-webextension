@@ -34,14 +34,28 @@ async function main() {
       app.available = true;
   }
 
+  async function applyFormat(format) {
+    let formatter = Parse(format);
+    let content = await formatter(context);
+    console.log('Copy content' + content);
+
+    copyToClipboard(content, async () => {
+      if (100 < content.length)
+        content = content.slice(0, 50) + ' ... ' + content.slice(-50);
+      await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
+      window.close();
+    });
+  }
+
 
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
-
+  let instantFormat = (await browser.storage.sync.get('instantFormat')).instantFormat;
 
   let tabs = await browser.tabs.query({active: true, currentWindow: true});
   let tab = tabs[0];
 
   let context = Context(tab);
+
 
   const app = new Vue({
     el: '#app',
@@ -52,24 +66,19 @@ async function main() {
     data: {
       available: false,
       formats: formats,
+      instantFormat,
     },
     watch: {
       formats: Common.saveFormats,
     },
     methods: {
-      parse: Parse,
-      copy: async fmt => {
-        let formatter = Parse(fmt.text);
-        let content = await formatter(context);
-        console.log('Copy content' + content);
-
-        copyToClipboard(content, async () => {
-          if (100 < content.length)
-            content = content.slice(0, 50) + ' ... ' + content.slice(-50);
-          await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
-          window.close();
-        });
+      applyInstantFormat: async function (e) {
+        let format = e.target.value;
+        await browser.storage.sync.set({instantFormat: format});
+        return applyFormat(format);
       },
+      parse: Parse,
+      copy: fmt => applyFormat(fmt.text),
       showManager: () => {
         chrome.tabs.create({
           url: chrome.extension.getURL('html/manager.html'),

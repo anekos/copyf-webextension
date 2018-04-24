@@ -35,6 +35,14 @@
           </draggable>
         </div>
       </div>
+      <div class="row mt-2"
+           v-if="available">
+        <input type="text"
+               class="form-control"
+               placeholder="Instant format"
+               v-model="instantFormat"
+               v-on:keyup.enter.exact="applyInstantFormat">
+      </div>
       <div class="row mt-2">
         <button type="button"
                 class="btn btn-secodary btn-block mb-2"
