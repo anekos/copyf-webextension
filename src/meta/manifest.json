@@ -20,6 +20,38 @@
       "72": "icon/ic_content_copy_black_36dp_2x.png",
       "96": "icon/ic_content_copy_black_48dp_2x.png"
     },
+    "theme_icons": [
+      {
+        "light": "icon/ic_content_copy_white_18dp_1x.png",
+        "dark":  "icon/ic_content_copy_black_18dp_1x.png",
+        "size": 18
+      },
+      {
+        "light": "icon/ic_content_copy_white_24dp_1x.png",
+        "dark":  "icon/ic_content_copy_black_24dp_1x.png",
+        "size": 24
+      },
+      {
+        "light": "icon/ic_content_copy_white_36dp_1x.png",
+        "dark":  "icon/ic_content_copy_black_36dp_1x.png",
+        "size": 36
+      },
+      {
+        "light": "icon/ic_content_copy_white_48dp_1x.png",
+        "dark":  "icon/ic_content_copy_black_48dp_1x.png",
+        "size": 48
+      },
+      {
+        "light": "icon/ic_content_copy_white_36dp_2x.png",
+        "dark":  "icon/ic_content_copy_black_36dp_2x.png",
+        "size": 72
+      },
+      {
+        "light": "icon/ic_content_copy_white_48dp_2x.png",
+        "dark":  "icon/ic_content_copy_black_48dp_2x.png",
+        "size": 96
+      }
+    ],
     "default_title": "copyf",
     "default_popup": "html/popup.html"
   },
