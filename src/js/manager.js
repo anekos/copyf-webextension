@@ -1,5 +1,6 @@
 
 import Bootstrap from 'bootstrap'
+import Bowser from 'bowser'
 import JQuery from 'jquery'
 import Vue from 'vue'
 import dateFormat from 'dateformat'
@@ -39,7 +40,8 @@ async function main() {
         let json = JSON.stringify(object, null, '  ');
 
         let a = e.target.querySelector('a');
-        a.setAttribute('download', 'copyf.' + dateFormat('yyyymmdd-HHMMss') + '.json');
+        if (!Bowser.firefox)
+          a.setAttribute('download', 'copyf.' + dateFormat('yyyymmdd-HHMMss') + '.json');
         a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
 
         a.click();

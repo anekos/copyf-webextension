@@ -13,6 +13,7 @@
   "devDependencies": {
     "amazon-helpers": "^0.2.0",
     "bootstrap": "^4.0.0",
+    "bowser": "^1.9.3",
     "clean-webpack-plugin": "^0.1.19",
     "command-join": "^2.0.0",
     "copy-webpack-plugin": "^4.5.1",
