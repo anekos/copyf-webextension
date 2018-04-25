@@ -40,8 +40,8 @@ export default fmt => {
   let entries = [];
   let useContent = false;
 
-  while (rest.length) {
-    let [m, name1, args1, name2, args2, raw1, raw2] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|\$(\$)|([^$]+))/);
+  while (rest && rest.length) {
+    let [m, name1, args1, name2, args2, dollar, raw] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|(\$\$)|([^$]+|\$$))/);
     rest = RegExp.rightContext;
 
     let name = name1 || name2;
@@ -54,7 +54,9 @@ export default fmt => {
         useContent = useContent || source.useContent;
         return entries.push(source ? (it => source(it).then(modifier).then(finisher)) : (_ => '$(' + name + ')'));
       }
-      let raw = raw1 || raw2;
+      if (dollar) {
+        return entries.push(_ => '$');
+      }
       if (raw)
         return entries.push(_ => raw);
       throw 'Failed to parse: ' + m;
