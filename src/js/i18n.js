@@ -9,7 +9,6 @@ import Messages from './messages'
 Vue.use(VueI18n);
 
 let locale = chrome.i18n.getUILanguage().replace(/-.*/g, '');
-console.log(locale);
 
 
-export default new VueI18n({locale: 'en', messages: Messages});
+export default new VueI18n({locale, messages: Messages});
