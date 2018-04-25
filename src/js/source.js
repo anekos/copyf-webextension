@@ -3,12 +3,8 @@ import dateFormat from 'dateformat'
 
 
 
-function join(ary) {
-  return ary.join('\n');
-}
-
-
-function inContent(f) {
+// In content and Array
+function I(f) {
   let result = context => {
     let command = (name, options) => {
       let params = Object.assign({command: name}, options);
@@ -22,23 +18,35 @@ function inContent(f) {
   return result;
 }
 
+// Not in content and Not promise
+function N(f) {
+  return context => Promise.resolve(f(context));
+}
+
 
 
 export default args => {
   return {
-    attribute: inContent((context, command) => {
+    attribute: I((context, command) => {
       let [attribute, query] = args.split(/\s+/, 2);
-      return command('attribute', {query, attribute}).then(join);
+      return command('attribute', {query, attribute});
     }),
-    'const': context => args,
-    date: context => dateFormat(args),
-    property: inContent((context, command) => {
+
+    'const': N(context => [args]),
+
+    date: N(context => [dateFormat(args)]),
+
+    property: I((context, command) => {
       let [property, query] = args.split(/\s+/, 2);
-      return command('property', {query, property}).then(join);
+      return command('property', {query, property});
     }),
-    selected: inContent((context, command) => command('selected', {})),
-    selector: inContent((context, command) => command('selector', {query: args}).then(join)),
-    title: context => context.tab.title,
-    url: context => context.tab.url,
+
+    selected: I((context, command) => command('selected', {})),
+
+    selector: I((context, command) => command('selector', {query: args})),
+
+    title: N(context => [context.tab.title]),
+
+    url: N(context => [context.tab.url]),
   }
 }

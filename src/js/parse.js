@@ -1,18 +1,17 @@
 
-import html from 'escape-html'
 import pmap from 'p-map'
 
+import Finisher from './finisher'
+import Modifier from './modifier'
 import Source from './source'
-import shrink from './shrink'
 
 
 
-const Modifiers = {
-  shrink,
-  html,
-  trim: it => it.trim(),
-  json: it => JSON.stringify(it),
-};
+function parseName(n) {
+  let [nameAndMods, finisher] = n.split('#', 2);
+  let [name, mods] = parseModifier(nameAndMods);
+  return [name, mods, Finisher[finisher] || Finisher.lines];
+}
 
 
 function parseModifier(name) {
@@ -21,7 +20,7 @@ function parseModifier(name) {
   if (parts.length <= 1)
     return [name, it => it];
 
-  let entries = parts.slice(1).map(it => Modifiers[it]);
+  let entries = parts.slice(1).map(it => Modifier[it]);
   let invalids = entries.filter(it => !it);
   if (0 < invalids.length)
     throw 'Invalid modifier name: ' + invalids.join('|');
@@ -47,11 +46,11 @@ export default fmt => {
 
     (() => {
       if (name) {
-        let [_name, modifier] = parseModifier(name);
+        let [_name, modifier, finisher] = parseName(name);
         let args = args1 || args2;
         let source = Source(args)[_name];
         useContent = useContent || source.useContent;
-        return entries.push(source ? (it => modifier(source(it))) : (_ => '$(' + name + ')'));
+        return entries.push(source ? (it => source(it).then(modifier).then(finisher)) : (_ => '$(' + name + ')'));
       }
       let raw = raw1 || raw2;
       if (raw)
