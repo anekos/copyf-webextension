@@ -8,9 +8,11 @@ import Source from './source'
 
 
 function parseName(n) {
-  let [nameAndMods, finisher] = n.split('#', 2);
+  let [nameAndMods, finisherName] = n.split('#', 2);
   let [name, mods] = parseModifier(nameAndMods);
-  return [name, mods, Finisher[finisher] || Finisher.lines];
+  if (finisherName && !Finisher[finisherName])
+    throw 'Invalid finisher: ' + finisherName;
+  return [name, mods, Finisher[finisherName] || Finisher.lines];
 }
 
 

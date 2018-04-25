@@ -20,18 +20,27 @@
       }
     </style>
   </head>
+
+  <script type="text/x-template" id="format-button">
+    <button class="btn btn-primary btn-block btn-sm drag-handle"
+            :disabled="!formatter || (!available && formatter.useContent)"
+            @click="copy(formatter)">
+      <span>{{ caption }}</span>
+    </button>
+  </script>
+
   <body>
     <div id="app" class="container" v-cloak>
       <div class="row">
         <div id="buttons"
              class="card col-sm-12">
           <draggable v-model="formats" :options="{handle: '.drag-handle'}">
-            <button class="btn btn-primary btn-block btn-sm drag-handle"
-                 :disabled="!available && parse(fmt.text).useContent"
-                 @click="copy(fmt)"
-                 v-for="fmt in formats">
-              <span>{{ fmt.name || fmt.text }}</span>
-            </button>
+            <div class="mb-1" v-for="fmt in formats">
+              <format-button :formatter="parse(fmt.text)"
+                             :caption="fmt.name || fmt.text"
+                             :available="available">
+              </format-button>
+            </div>
           </draggable>
         </div>
       </div>

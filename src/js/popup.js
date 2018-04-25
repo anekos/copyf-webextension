@@ -34,8 +34,7 @@ async function main() {
       app.available = true;
   }
 
-  async function applyFormat(format) {
-    let formatter = Parse(format);
+  async function applyFormatter(formatter) {
     let content = await formatter(context);
     console.log('Copy content' + content);
 
@@ -48,6 +47,15 @@ async function main() {
   }
 
 
+  function tryParse(format) {
+    try {
+      return Parse(format)
+    } catch (e) {
+      return false
+    }
+  }
+
+
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
   let instantFormat = (await browser.storage.sync.get('instantFormat')).instantFormat;
 
@@ -56,6 +64,14 @@ async function main() {
 
   let context = Context(tab);
 
+
+  Vue.component('format-button', {
+    template: '#format-button',
+    props: ['caption', 'formatter', 'available'],
+    methods: {
+      copy: formatter => applyFormatter(formatter),
+    }
+  });
 
   const app = new Vue({
     el: '#app',
@@ -73,12 +89,11 @@ async function main() {
     },
     methods: {
       applyInstantFormat: async function (e) {
-        let format = e.target.value;
+        let format = Parse(e.target.value);
         await browser.storage.sync.set({instantFormat: format});
-        return applyFormat(format);
+        return applyFormatter(format);
       },
-      parse: Parse,
-      copy: fmt => applyFormat(fmt.text),
+      parse: tryParse,
       showManager: () => {
         chrome.tabs.create({
           url: chrome.extension.getURL('html/manager.html'),
