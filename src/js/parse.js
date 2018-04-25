@@ -22,10 +22,11 @@ function parseModifier(name) {
   if (parts.length <= 1)
     return [name, it => it];
 
-  let entries = parts.slice(1).map(it => Modifier[it]);
-  let invalids = entries.filter(it => !it);
-  if (0 < invalids.length)
-    throw 'Invalid modifier name: ' + invalids.join('|');
+  let entries = parts.slice(1).map(it => {
+    if (!Modifier[it])
+      throw 'Invalid modifier: ' + it;
+    return Modifier[it];
+  });
 
   return [
     parts[0],
@@ -41,7 +42,11 @@ export default fmt => {
   let useContent = false;
 
   while (rest && rest.length) {
-    let [m, name1, args1, name2, args2, dollar, raw] = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|(\$\$)|([^$]+|\$$))/);
+    let matched = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|(\$\$)|([^$]+|\$$))/);
+    if (!matched)
+        return entries.push(_ => rest);
+
+    let [whole, name1, args1, name2, args2, dollar, raw] = matched;
     rest = RegExp.rightContext;
 
     let name = name1 || name2;
@@ -51,6 +56,8 @@ export default fmt => {
         let [_name, modifier, finisher] = parseName(name);
         let args = args1 || args2;
         let source = Source(args)[_name];
+        if (!source)
+          throw 'Invalid source: ' + _name;
         useContent = useContent || source.useContent;
         return entries.push(source ? (it => source(it).then(modifier).then(finisher)) : (_ => '$(' + name + ')'));
       }
@@ -59,7 +66,8 @@ export default fmt => {
       }
       if (raw)
         return entries.push(_ => raw);
-      throw 'Failed to parse: ' + m;
+
+      throw 'Failed to parse: ' + whole;
     })();
   }
 
