@@ -50,7 +50,6 @@ export default fmt => {
         let [_name, modifier] = parseModifier(name);
         let args = args1 || args2;
         let source = Source(args)[_name];
-        console.log(source, source.useContent);
         useContent = useContent || source.useContent;
         return entries.push(source ? (it => modifier(source(it))) : (_ => '$(' + name + ')'));
       }
