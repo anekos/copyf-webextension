@@ -8,7 +8,7 @@ function main() {
       'copyf',
       {
         type: 'basic',
-        iconUrl: chrome.extension.getURL('icon/ic_content_copy_black_48px.svg'),
+        iconUrl: chrome.extension.getURL('icon/ic_content_copy_black_48dp_1x.png'),
         title: 'copyf',
         message: message.content,
       }

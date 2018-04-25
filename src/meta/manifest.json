@@ -4,7 +4,7 @@
   "name": "copyf",
   "version": "1.2.0",
   "icons": {
-    "64": "icon/ic_content_copy_black_48px.svg"
+    "48": "icon/ic_content_copy_black_48dp_1x.png"
   },
   "background": {
     "scripts": [
@@ -13,7 +13,12 @@
   },
   "browser_action": {
     "default_icon": {
-      "64": "icon/ic_content_copy_black_48px.svg"
+      "18": "icon/ic_content_copy_black_18dp_1x.png",
+      "24": "icon/ic_content_copy_black_24dp_1x.png",
+      "36": "icon/ic_content_copy_black_36dp_1x.png",
+      "48": "icon/ic_content_copy_black_48dp_1x.png",
+      "72": "icon/ic_content_copy_black_36dp_2x.png",
+      "96": "icon/ic_content_copy_black_48dp_2x.png"
     },
     "default_title": "copyf",
     "default_popup": "html/popup.html"
