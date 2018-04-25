@@ -74,6 +74,10 @@
         width: 0;
         height: 0;
       }
+
+      .format-error-alert {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -120,6 +124,7 @@
             <draggable v-model="formats" :options="{handle: '.drag-handle'}">
               <div class="card"
                    v-for="(fmt, index) in formats"
+                   :key="fmt.meta.uuid"
                    :id="'format-' + index">
                 <div class="card-header drag-handle d-flex justify-content-between p-2 pl-3">
                   <i class="material-icons">drag_handle</i>
@@ -133,16 +138,17 @@
                            type="text"
                            placeholder="Name (Optional)"
                            @change="saveFormats"
-                           v-model="fmt.name">
+                           v-model.lazy="fmt.name">
                   </div>
                   <div class="form-group mb-2">
-                    <textarea class="form-control"
+                    <textarea class="form-control format-text"
                               type="text"
                               placeholder="Format"
                               wrap="off"
-                              rows="4"
-                              @change="saveFormats"
-                              v-model="fmt.text"></textarea>
+                              rows="2"
+                              @change="updateFormat"
+                              v-model.lazy="fmt.text"></textarea>
+                    <div class="format-error-alert invalid-feedback" role="alert"></div>
                   </div>
                   <div class="form-group mb-0 d-flex justify-content-end">
                     <button class="btn btn-danger btn-sm"

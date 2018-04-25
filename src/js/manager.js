@@ -8,16 +8,39 @@ import delay  from 'timeout-as-promise'
 import draggable from 'vuedraggable'
 
 import './polyfill'
+import parse from './parse'
 import Common from './common'
 import Defaults from './defaults'
 import i18n from './i18n'
+import uuidv1 from 'uuid/v1'
 
 import 'file-loader!bootstrap/dist/css/bootstrap.min.css'
 
 
+
 async function main() {
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
+  formats.forEach(it => it.meta = {uuid: uuidv1()});
 
+
+  function checkFormat(textarea) {
+    let errorMessage = JQuery(textarea).parents('div.card-body').find('.format-error-alert');
+    try {
+      parse(textarea.value);
+      errorMessage.hide();
+      JQuery(textarea).removeClass('is-invalid');
+      JQuery(textarea).removeAttr('title');
+    } catch (ex) {
+      JQuery(textarea).addClass('is-invalid');
+      JQuery(textarea).attr('title', ex);
+      errorMessage.text(ex);
+      errorMessage.show();
+    }
+  }
+
+  function recheckFormats() {
+    JQuery('textarea.format-text').each(function () { checkFormat(this); });
+  }
 
   const app = new Vue({
     el: '#app',
@@ -65,8 +88,13 @@ async function main() {
         await delay(1);
         JQuery('#format-0 textarea').select();
       },
+      updateFormat: function (ev) {
+        checkFormat(ev.target);
+        this.saveFormats();
+      },
       saveFormats: Common.saveFormats,
     },
+    mounted: recheckFormats,
   });
 
 
