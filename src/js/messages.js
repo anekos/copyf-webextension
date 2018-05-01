@@ -39,8 +39,8 @@ export default {
     manager: {
       button: {
         addFormat: 'Add a format',
-        'import': 'import',
-        'export': 'export',
+        'import': 'Import',
+        'export': 'Export',
         help: 'Help',
       },
       note: {
