@@ -7,7 +7,7 @@ function aliexpress(url) {
   if (!/^[^.]+\.aliexpress.com$/.test(url.hostname))
     return;
 
-  let [_, productId] = url.pathname.match(/^\/item\/[^\/]+\/(.+)\.html$/) || [];
+  let [_, productId] = url.pathname.match(/^\/item\/(?:[^\/]+\/)?(.+)\.html$/) || [];
   if (!productId)
     return;
 
