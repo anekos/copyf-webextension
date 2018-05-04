@@ -89,9 +89,10 @@ async function main() {
     },
     methods: {
       applyInstantFormat: async function (e) {
-        let format = Parse(e.target.value);
+        let format = e.target.value;
+        let formatter = Parse(format);
         await browser.storage.sync.set({instantFormat: format});
-        return applyFormatter(format);
+        return applyFormatter(formatter);
       },
       parse: tryParse,
       showManager: () => {
