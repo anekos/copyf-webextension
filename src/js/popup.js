@@ -59,8 +59,9 @@ async function main() {
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
   let instantFormat = (await browser.storage.sync.get('instantFormat')).instantFormat;
 
-  let tabs = await browser.tabs.query({active: true, currentWindow: true});
-  let tab = tabs[0];
+  let currentTabs = await browser.tabs.query({active: true, currentWindow: true});
+  let tab = currentTabs[0];
+  let selectedTabs = await browser.tabs.query({currentWindow: true});
 
   let context = Context(tab);
 
