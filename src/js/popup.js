@@ -34,8 +34,8 @@ async function main() {
       app.available = true;
   }
 
-  async function applyFormatter(formatter) {
-    let content = await formatter(context);
+  async function applyFormatter(formatter, forAllTabs) {
+    let content = await formatter(await getContext(forAllTabs));
     console.log('Copy content', content);
 
     copyToClipboard(content, async () => {
@@ -51,26 +51,34 @@ async function main() {
     try {
       return Parse(format)
     } catch (e) {
+      console.log(e);
       return false
     }
+  }
+
+
+  async function getContext(forAllTabs) {
+    let conditions = forAllTabs ? {currentWindow: true} : {active: true, currentWindow: true};
+    let tabs = await browser.tabs.query(conditions);
+    return Context(tabs);
   }
 
 
   let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
   let instantFormat = (await browser.storage.sync.get('instantFormat')).instantFormat;
 
-  let currentTabs = await browser.tabs.query({active: true, currentWindow: true});
-  let tab = currentTabs[0];
-  let selectedTabs = await browser.tabs.query({currentWindow: true});
+  let activeTab = (await browser.tabs.query({active: true, currentWindow: true}))[0];
 
-  let context = Context(tab);
+  let forAllTabs = (await browser.storage.sync.get('forAllTabs')).forAllTabs || false;
 
 
   Vue.component('format-button', {
     template: '#format-button',
-    props: ['caption', 'formatter', 'available'],
+    props: ['caption', 'formatter', 'available', 'forAllTabs'],
     methods: {
-      copy: formatter => applyFormatter(formatter),
+      copy: function (formatter) {
+        applyFormatter(formatter, this.forAllTabs);
+      },
     }
   });
 
@@ -82,18 +90,20 @@ async function main() {
     },
     data: {
       available: false,
+      forAllTabs,
       formats: formats,
       instantFormat,
     },
     watch: {
       formats: Common.saveFormats,
+      forAllTabs: (newValue, oldValue) => browser.storage.sync.set({forAllTabs: newValue}),
     },
     methods: {
       applyInstantFormat: async function (e) {
         let format = e.target.value;
         let formatter = Parse(format);
         await browser.storage.sync.set({instantFormat: format});
-        return applyFormatter(formatter);
+        return applyFormatter(formatter, this.forAllTabs);
       },
       parse: tryParse,
       showManager: () => {
@@ -106,7 +116,7 @@ async function main() {
     },
   });
 
-  browser.tabs.sendMessage(context.tab.id, {command: 'ping'}).then(onCheckAvailability);
+  browser.tabs.sendMessage(activeTab.id, {command: 'ping'}).then(onCheckAvailability);
   chrome.runtime.onMessage.addListener(onCheckAvailability);
 
   window.copyf = app;

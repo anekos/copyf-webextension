@@ -55,7 +55,7 @@ export default fmt => {
       if (name) {
         let [_name, modifier, finisher] = parseName(name);
         let args = args1 || args2;
-        let source = Source(args)[_name];
+        let source = Source(args, _name);
         if (!source)
           throw 'Invalid source: ' + _name;
         useContent = useContent || source.useContent;
