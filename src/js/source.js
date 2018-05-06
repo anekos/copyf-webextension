@@ -24,11 +24,17 @@ function N(f) {
 }
 
 
+function split2(args) {
+  let [_, head, tail] = args.trim().match(/(\S*)(?:\s+(.+))?/);
+  return [head, tail];
+}
+
+
 
 export default args => {
   return {
     attribute: I((context, command) => {
-      let [attribute, query] = args.split(/\s+/, 2);
+      let [property, query] = split2(args);
       return command('attribute', {query, attribute});
     }),
 
@@ -37,7 +43,7 @@ export default args => {
     date: N(context => [dateFormat(args)]),
 
     property: I((context, command) => {
-      let [property, query] = args.split(/\s+/, 2);
+      let [property, query] = split2(args);
       return command('property', {query, property});
     }),
 
