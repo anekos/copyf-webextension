@@ -5,6 +5,7 @@ export default {
     popup: {
       openManager: 'フォーマット管理',
       notAvailableTab: 'このタブでは動作しません',
+      forAllTabs: '全タブ対象',
     },
     manager: {
       button: {
@@ -35,6 +36,7 @@ export default {
     popup: {
       openManager: 'Manage formats',
       notAvailableTab: 'Not available on this tab',
+      forAllTabs: 'For all tabs',
     },
     manager: {
       button: {
