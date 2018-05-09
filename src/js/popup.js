@@ -36,7 +36,7 @@ async function main() {
 
   async function applyFormatter(formatter) {
     let content = await formatter(context);
-    console.log('Copy content' + content);
+    console.log('Copy content', content);
 
     copyToClipboard(content, async () => {
       if (100 < content.length)
