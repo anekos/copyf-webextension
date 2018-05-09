@@ -24,26 +24,6 @@ function N(f) {
 }
 
 
-function forEachTabs(f) {
-  let result = async context => {
-    let result = [];
-    for (let tab of context.tabs) {
-      try {
-        result.push(await f(context, tab));
-      } catch (e) {
-        // PASS
-      }
-    }
-
-    return Promise.resolve(result);
-  };
-
-  result.useContent = f.useContent;
-
-  return result;
-}
-
-
 function split2(args) {
   let [_, head, tail] = args.trim().match(/(\S*)(?:\s+(.+))?/);
   return [head, tail];
@@ -76,5 +56,5 @@ export default (args, name) => {
     url: N((context, tab) => [tab.url]),
   };
 
-  return forEachTabs(entries[name]);
+  return entries[name];
 }
