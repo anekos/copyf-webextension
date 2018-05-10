@@ -34,7 +34,7 @@ function split2(args) {
 export default args => {
   return {
     attribute: I((context, command) => {
-      let [property, query] = split2(args);
+      let [attribute, query] = split2(args);
       return command('attribute', {query, attribute});
     }),
 
