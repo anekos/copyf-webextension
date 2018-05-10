@@ -42,7 +42,7 @@ export default fmt => {
   let useContent = false;
 
   while (rest && rest.length) {
-    let matched = rest.match(/^(?:\$\{(\S+?)(?:\s+(.+))?\}|\$\((\S+?)(?:\s+(.+))?\)|(\$\$)|([^$]+|\$$))/);
+    let matched = rest.match(/^(?:\$\{(\S+?)(?:\s+([^\}].+))?\}|\$\((\S+?)(?:\s+([^\)]+))?\)|(\$\$)|([^$]+|\$$))/);
     if (!matched)
         return entries.push(_ => rest);
 
