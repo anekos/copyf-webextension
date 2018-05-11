@@ -4,7 +4,7 @@ import URL from 'url-parse'
 
 
 function aliexpress(url) {
-  if (!/^[^.]+\.aliexpress.com$/.test(url.hostname))
+  if (!/^.+\.aliexpress.com$/.test(url.hostname))
     return;
 
   let [_, productId] = url.pathname.match(/^\/item\/(?:[^\/]+\/)?(.+)\.html$/) || [];
