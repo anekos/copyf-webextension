@@ -179,6 +179,7 @@
                                     wrap="off"
                                     rows="2"
                                     :placeholder="$t('manager.setting.targetUrls.note')"
+                                    @change="saveFormats"
                                     v-model.lazy="fmt.targetUrls"></textarea>
                         </div>
                       </div>

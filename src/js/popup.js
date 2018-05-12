@@ -34,8 +34,8 @@ async function main() {
       app.available = true;
   }
 
-  async function applyFormatter(formatter, forAllTabs) {
-    let content = await formatter(await getContext(forAllTabs));
+  async function applyFormatter(formatter, forAllTabs, isTarget) {
+    let content = await formatter(await getContext(forAllTabs, isTarget));
     console.log('Copy content', content);
 
     copyToClipboard(content, async () => {
@@ -45,7 +45,6 @@ async function main() {
       window.close();
     });
   }
-
 
   function tryParse(format) {
     try {
@@ -57,27 +56,50 @@ async function main() {
   }
 
 
-  async function getContext(forAllTabs) {
+  async function getContext(forAllTabs, isTarget) {
     let conditions = forAllTabs ? {currentWindow: true} : {active: true, currentWindow: true};
     let tabs = await browser.tabs.query(conditions);
-    return Context(tabs);
+    return Context(tabs.filter(it => isTarget(it.url)));
   }
 
 
-  let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
   let instantFormat = (await browser.storage.sync.get('instantFormat')).instantFormat;
-
-  let activeTab = (await browser.tabs.query({active: true, currentWindow: true}))[0];
-
   let forAllTabs = (await browser.storage.sync.get('forAllTabs')).forAllTabs || false;
+
+
+  let formats = (await browser.storage.sync.get({formats: Defaults.formats})).formats;
+  formats.forEach(it => {
+    let formatter = tryParse(it.text);
+    let isTarget = Common.isTarget(it.targetUrls);
+
+    it.meta = {
+      error: !formatter,
+      formatter,
+      isTarget,
+      isValid: function (data) {
+        if (!formatter)
+          return false;
+
+        if (data.forAllTabs) {
+          return data.allTabs && data.allTabs.some(it => isTarget(it.url));
+        } else {
+          if (data.activeTab && !isTarget(data.activeTab.url))
+            return false;
+          if (formatter.useContent && !data.available)
+            return false;
+          return true;
+        }
+      },
+    };
+  });
 
 
   Vue.component('format-button', {
     template: '#format-button',
-    props: ['caption', 'formatter', 'available', 'forAllTabs'],
+    props: ['format'],
     methods: {
-      copy: function (formatter) {
-        applyFormatter(formatter, this.forAllTabs);
+      copy: function (fmt) {
+        applyFormatter(fmt.meta.formatter, app.forAllTabs, fmt.meta.isTarget);
       },
     }
   });
@@ -93,6 +115,8 @@ async function main() {
       forAllTabs,
       formats: formats,
       instantFormat,
+      activeTab: undefined,
+      allTabs: undefined,
     },
     watch: {
       formats: Common.saveFormats,
@@ -103,7 +127,7 @@ async function main() {
         let format = e.target.value;
         let formatter = Parse(format);
         await browser.storage.sync.set({instantFormat: format});
-        return applyFormatter(formatter, this.forAllTabs);
+        return applyFormatter(formatter, this.forAllTabs, _ => true);
       },
       parse: tryParse,
       showManager: () => {
@@ -116,8 +140,20 @@ async function main() {
     },
   });
 
-  browser.tabs.sendMessage(activeTab.id, {command: 'ping'}).then(onCheckAvailability);
+
+  browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
+    let activeTab = tabs[0];
+    app.activeTab = activeTab;
+    browser.tabs.sendMessage(activeTab.id, {command: 'ping'}).then(onCheckAvailability);
+  });
+
+  browser.tabs.query({currentWindow: true}).then(tabs => {
+    app.allTabs = tabs;
+  });
+
+
   chrome.runtime.onMessage.addListener(onCheckAvailability);
+
 
   window.copyf = app;
 }
