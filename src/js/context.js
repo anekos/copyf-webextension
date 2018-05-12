@@ -1,4 +1,4 @@
 
-export default tab => {
-  return {tab};
+export default (tabs) => {
+  return {tabs};
 }

@@ -35,6 +35,10 @@ function parseModifier(name) {
 }
 
 
+function failSafe(ifFailed, f) {
+  return (...args) => f.apply(null, args).then(it => it, _ => ifFailed);
+}
+
 
 export default fmt => {
   let rest = fmt;
@@ -55,23 +59,35 @@ export default fmt => {
       if (name) {
         let [_name, modifier, finisher] = parseName(name);
         let args = args1 || args2;
-        let source = Source(args)[_name];
+        let source = Source(args, _name);
         if (!source)
           throw 'Invalid source: ' + _name;
         useContent = useContent || source.useContent;
-        return entries.push(source ? (it => source(it).then(modifier).then(finisher)) : (_ => '$(' + name + ')'));
+        return entries.push(
+          source ? ((context, tab) => source(context, tab).then(modifier).then(finisher))
+                 : (_ => Promise.resolve('$(' + name + ')'))
+        );
       }
       if (dollar) {
-        return entries.push(_ => '$');
+        return entries.push(_ => Promise.resolve('$'));
       }
       if (raw)
-        return entries.push(_ => raw);
+        return entries.push(_ => Promise.resolve(raw));
 
       throw 'Failed to parse: ' + whole;
     })();
   }
 
-  let result = context => pmap(entries, entry => entry(context), {concurrency: 10}).then(it => it.join(''));
+  let result = async context => {
+    return pmap(
+      context.tabs,
+      tab => pmap(
+        entries,
+        failSafe('', entry => entry(context, tab)),
+        {concurrency: 10}).then(it => it.join('')),
+      {concurrency: 10}
+    ).then(it => it.join('\n'));
+  }
   result.useContent = useContent;
 
   return result;

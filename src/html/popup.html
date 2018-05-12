@@ -24,7 +24,7 @@
   <script type="text/x-template" id="format-button">
     <button class="btn btn-primary btn-block btn-sm drag-handle"
             :class="formatter ? 'btn-primary' : 'btn-danger'"
-            :disabled="!formatter || (!available && formatter.useContent)"
+            :disabled="!formatter || (!forAllTabs && !available && formatter.useContent)"
             @click="copy(formatter)">
       <span>{{ caption }}</span>
     </button>
@@ -39,7 +39,8 @@
             <div class="mb-1" v-for="fmt in formats">
               <format-button :formatter="parse(fmt.text)"
                              :caption="fmt.name || fmt.text"
-                             :available="available">
+                             :available="available"
+                             :for-all-tabs="forAllTabs">
               </format-button>
             </div>
           </draggable>
@@ -52,6 +53,12 @@
                placeholder="Instant format"
                v-model="instantFormat"
                v-on:keyup.enter.exact="applyInstantFormat">
+      </div>
+      <div class="row mt-2">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="for-all-tabs-check" v-model="forAllTabs">
+          <label class="custom-control-label" for="for-all-tabs-check">{{ $t('popup.forAllTabs') }}</label>
+        </div>
       </div>
       <div class="row mt-2">
         <button type="button"
