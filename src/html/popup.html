@@ -22,12 +22,12 @@
   </head>
 
   <script type="text/x-template" id="format-button">
-    <button class="btn btn-primary btn-block btn-sm drag-handle"
+    <div class="btn btn-primary btn-block btn-sm drag-handle"
             :class="formatter ? 'btn-primary' : 'btn-danger'"
             :disabled="!formatter || (!forAllTabs && !available && formatter.useContent)"
             @click="copy(formatter)">
       <span>{{ caption }}</span>
-    </button>
+    </div>
   </script>
 
   <body>
