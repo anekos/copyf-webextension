@@ -18,6 +18,7 @@ export default {
         order: 'ドラッグ&ドップで順番を変更できます',
       },
       'delete': '削除',
+      'setting': '設定',
       help: {
         variables: '変数',
         modifiers: 'モディファイア',
@@ -29,7 +30,14 @@ export default {
         description: '説明',
         alternativeParen: '`$(...)` の代りに `${...}` も使えます。',
         modifierNote: '以下のモディファイアで取得したテキストを変換できます',
-      }
+      },
+      setting: {
+        title: '設定',
+        targetUrls: {
+          caption: '対象の URL',
+          note: '正規表現が使えます',
+        },
+      },
     }
   },
   en: {
@@ -60,7 +68,14 @@ export default {
         description: 'Description',
         alternativeParen: 'You can use `${...}` instead of `$(...)`',
         modifierNote: 'You can use these modifiers to convert fetched text',
-      }
+      },
+      setting: {
+        title: 'Setting',
+        targetUrls: {
+          caption: 'Target URLs',
+          note: 'Regular expressions',
+        },
+      },
     }
   }
 }
