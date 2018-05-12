@@ -35,15 +35,20 @@ async function main() {
   }
 
   async function applyFormatter(formatter, forAllTabs, isTarget) {
-    let content = await formatter(await getContext(forAllTabs, isTarget));
-    console.log('Copy content', content);
+    try {
+      let content = await formatter(await getContext(forAllTabs, isTarget));
+      console.log('Copy content', content);
 
-    copyToClipboard(content, async () => {
-      if (100 < content.length)
-        content = content.slice(0, 50) + ' ... ' + content.slice(-50);
-      await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
+      copyToClipboard(content, async () => {
+        if (100 < content.length)
+          content = content.slice(0, 50) + ' ... ' + content.slice(-50);
+        await browser.runtime.sendMessage({command: 'notify', content: 'Copy: ' + content});
+        window.close();
+      });
+    } catch (e) {
+      await browser.runtime.sendMessage({command: 'notify', content: 'Error! Invalid format?'});
       window.close();
-    });
+    }
   }
 
   function tryParse(format) {
