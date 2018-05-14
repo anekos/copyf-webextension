@@ -113,6 +113,14 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help">
             {{ $t('manager.button.help') }}
           </button>
+          <button type="button"
+                  class="btn btn-primary"
+                  data-toggle="button"
+                  aria-pressed="false"
+                  autocomplete="off"
+                  @click="collapsed ^= true">
+            {{ collapsed ? $t('manager.button.expand') : $t('manager.button.collapse') }}
+          </button>
           <span>{{ $t('manager.note.order') }}</span>
         </div>
       </div>
@@ -128,11 +136,12 @@
                    :id="'format-' + index">
                 <div class="card-header drag-handle d-flex justify-content-between p-2 pl-3">
                   <i class="material-icons">drag_handle</i>
+                  <span v-show="collapsed">{{ fmt.name }}</span>
                   <span class="align-bottom text-muted small">
                     {{ index + 1 }}
                   </span>
                 </div>
-                <div class="card-body p-2">
+                <div class="card-body p-2" v-show="!collapsed">
                   <div class="form-group mb-1">
                     <input class="form-control"
                            type="text"

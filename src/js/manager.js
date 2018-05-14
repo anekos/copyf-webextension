@@ -50,6 +50,7 @@ async function main() {
     },
     data: {
       formats: formats,
+      collapsed: false,
     },
     watch: {
       formats: Common.saveFormats,

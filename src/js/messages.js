@@ -13,6 +13,8 @@ export default {
         'import': 'インポート',
         'export': 'エクスポート',
         help: 'ヘルプ',
+        collapse: '折り畳み',
+        expand: '展開',
       },
       note: {
         order: 'ドラッグ&ドップで順番を変更できます',
@@ -44,6 +46,8 @@ export default {
         'import': 'Import',
         'export': 'Export',
         help: 'Help',
+        collapse: 'Collapse',
+        expand: 'Expand',
       },
       note: {
         order: 'Drag and drop to order entries.',
