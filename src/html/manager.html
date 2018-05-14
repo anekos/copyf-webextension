@@ -167,7 +167,7 @@
                             data-toggle="modal"
                             :data-target="'#setting-' + index" >{{ $t('manager.setting.title') }}</button>
                     <button class="btn btn-danger btn-sm"
-                            @click="formats.splice(index, 1)">{{ $t('manager.delete') }}</button>
+                            @click="deleteFormat(index)">{{ $t('manager.delete') }}</button>
                   </div>
                 </div>
 

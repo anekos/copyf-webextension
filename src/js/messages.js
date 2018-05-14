@@ -8,6 +8,9 @@ export default {
       forAllTabs: '全タブ対象',
     },
     manager: {
+      confirmation: {
+        deleteFormat: '本当にこのフォーマットを削除しますか?',
+      },
       button: {
         addFormat: 'フォーマット追加',
         'import': 'インポート',
@@ -49,6 +52,9 @@ export default {
       forAllTabs: 'For all tabs',
     },
     manager: {
+      confirmation: {
+        deleteFormat: 'Are you sure you want to delete this format?',
+      },
       button: {
         addFormat: 'Add a format',
         'import': 'Import',

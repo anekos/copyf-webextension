@@ -57,6 +57,10 @@ async function main() {
     },
     methods: {
       clickImport : () => JQuery('input[type="file"]').click(),
+      deleteFormat: function (index) {
+        if (confirm(app.$t('manager.confirmation.deleteFormat')))
+          this.formats.splice(index, 1);
+      },
       exportStorage: async function (e) {
         await this.saveFormats();
 
