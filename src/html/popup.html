@@ -23,10 +23,9 @@
 
   <script type="text/x-template" id="format-button">
     <div class="btn btn-primary btn-block btn-sm drag-handle"
-            :class="formatter ? 'btn-primary' : 'btn-danger'"
-            :disabled="!formatter || (!forAllTabs && !available && formatter.useContent)"
-            @click="copy(formatter)">
-      <span>{{ caption }}</span>
+          :class="format.meta.error ? 'btn-danger' : 'btn-primary'"
+          @click="copy(format)">
+      <span>{{ format.name || format.text }}</span>
     </div>
   </script>
 
@@ -37,10 +36,7 @@
              class="card col-sm-12">
           <draggable v-model="formats" :options="{handle: '.drag-handle'}">
             <div class="mb-1" v-for="fmt in formats">
-              <format-button :formatter="parse(fmt.text)"
-                             :caption="fmt.name || fmt.text"
-                             :available="available"
-                             :for-all-tabs="forAllTabs">
+              <format-button :format="fmt" v-if="fmt.meta.isValid($data)">
               </format-button>
             </div>
           </draggable>
