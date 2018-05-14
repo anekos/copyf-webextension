@@ -19,6 +19,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "dateformat": "^3.0.3",
     "escape-html": "^1.0.3",
+    "escape-string-regexp": "^1.0.5",
     "file-loader": "^1.1.11",
     "jquery": "^3.3.1",
     "p-map": "^1.2.0",

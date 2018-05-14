@@ -1,5 +1,6 @@
 import html from 'escape-html'
 import shrink from './shrink'
+import regexpEscape from 'escape-string-regexp'
 
 
 function mapped(f) {
@@ -11,6 +12,8 @@ export default {
   html: mapped(html),
 
   quote: mapped(JSON.stringify),
+
+  regexp: mapped(regexpEscape),
 
   reverse: ary => [].concat(ary).reverse(),
 
