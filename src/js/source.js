@@ -1,5 +1,6 @@
 
 import dateFormat from 'dateformat'
+import URL from 'url-parse'
 
 
 
@@ -30,6 +31,21 @@ function split2(args) {
 }
 
 
+function getUrlProperty(url, name, modifier) {
+  try {
+    let result = new URL(url)[name];
+    return modifier ? modifier(result) : result;
+  } catch (e) {
+    return '';
+  }
+}
+
+
+function urlProp(name, modifier) {
+  return N((context, tab) => [getUrlProperty(tab.url, name, modifier)]);
+}
+
+
 
 export default (args, name) => {
   let entries = {
@@ -55,6 +71,13 @@ export default (args, name) => {
 
     url: N((context, tab) => [tab.url]),
   };
+
+  for (let name of 'host hostname port query hash protocol username password'.split(' ')) {
+    let modifier = null;
+    if (name === 'query' || name === 'hash')
+      modifier = (url) => url.slice(1);
+    entries[name] = urlProp(name, modifier);
+  }
 
   return entries[name];
 }
