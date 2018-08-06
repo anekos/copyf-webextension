@@ -165,7 +165,7 @@ async function main() {
     if (document.activeElement.tagName === 'INPUT')
       return;
 
-    if (ev.key === 'Control') {
+    if (ev.key === 'Control' || ev.key === 'Shift') {
       app.forAllTabs = !app.forAllTabs;
       updateForAllTabs = _updateForAllTabs;
     }
