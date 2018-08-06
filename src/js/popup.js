@@ -109,6 +109,8 @@ async function main() {
     }
   });
 
+  let updateForAllTabs = true;
+
   const app = new Vue({
     el: '#app',
     i18n,
@@ -125,7 +127,10 @@ async function main() {
     },
     watch: {
       formats: Common.saveFormats,
-      forAllTabs: (newValue, oldValue) => browser.storage.sync.set({forAllTabs: newValue}),
+      forAllTabs: (newValue, oldValue) => {
+        if (updateForAllTabs)
+          browser.storage.sync.set({forAllTabs: newValue});
+      },
     },
     methods: {
       applyInstantFormat: async function (e) {
@@ -141,10 +146,9 @@ async function main() {
           active: true,
         });
         window.close();
-      },
+      }
     },
   });
-
 
   browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
     let activeTab = tabs[0];
@@ -155,6 +159,20 @@ async function main() {
   browser.tabs.query({currentWindow: true}).then(tabs => {
     app.allTabs = tabs;
   });
+
+
+  const toggleAllTabs = (_updateForAllTabs) => (ev) => {
+    if (document.activeElement.tagName === 'INPUT')
+      return;
+
+    if (ev.key === 'Control') {
+      app.forAllTabs = !app.forAllTabs;
+      updateForAllTabs = _updateForAllTabs;
+    }
+  };
+
+  window.addEventListener('keyup', toggleAllTabs(true));
+  window.addEventListener('keydown', toggleAllTabs(false));
 
 
   chrome.runtime.onMessage.addListener(onCheckAvailability);
