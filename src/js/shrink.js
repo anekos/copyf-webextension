@@ -14,6 +14,12 @@ function aliexpress(url) {
   return 'https://www.aliexpress.com/item/-/' + productId + '.html';
 }
 
+function mercari(url) {
+  if (!/^item\.mercari\.com$/.test(url.hostname))
+    return;
+
+  return 'https://item.mercari.com' + url.pathname;
+}
 
 function raw(f) {
   return url => f(url.href)
@@ -23,6 +29,7 @@ function raw(f) {
 const shrinkers = [
   raw(Amazon.getProductUrl),
   aliexpress,
+  mercari,
 ];
 
 
