@@ -21,7 +21,7 @@
     "escape-html": "^1.0.3",
     "escape-string-regexp": "^1.0.5",
     "file-loader": "^1.1.11",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "lodash": "^4.17.11",
     "p-map": "^1.2.0",
     "popper.js": "^1.14.7",
