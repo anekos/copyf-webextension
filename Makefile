@@ -19,3 +19,12 @@ sign:
 
 install:
 	npm install
+
+# Do `npm install npm-check-updates` to install `ncu`
+
+check-update:
+	ncu
+
+update-modules:
+	ncu -u
+	npm update
