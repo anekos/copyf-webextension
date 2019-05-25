@@ -23,7 +23,7 @@ function generateBrowser() {
 
     let result = {};
     for (let name of definitions) {
-      result[name] = modifyFunction(original[name]);
+      result[name] = modifyFunction(original[name].bind(original));
     }
     return result;
   }
