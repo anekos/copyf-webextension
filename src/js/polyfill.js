@@ -29,11 +29,11 @@ function generateBrowser() {
   }
 
   function modifyStorage(original) {
-    return modifyObject(original, ['clear', 'get', 'getBytesInUse', 'remove', 'set']);
+    return modifyObject(original, ['clear', 'get', 'remove', 'set']);
   }
 
 
-  return {
+  let result = {
     storage: {
       local: modifyStorage(chrome.storage.local),
       managed: modifyStorage(chrome.storage.managed),
@@ -42,6 +42,9 @@ function generateBrowser() {
     tabs: modifyObject(chrome.tabs, ['query', 'sendMessage']),
     runtime: modifyObject(chrome.runtime, ['sendMessage']),
   };
+  // Huh?
+  result.runtime.onMessage = chrome.runtime.onMessage;
+  return result;
 }
 
 

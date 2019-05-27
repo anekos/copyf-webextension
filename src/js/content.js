@@ -32,8 +32,7 @@ function main() {
     selector: message => qsel(message.query).map(it => it.textContent).filter(id),
   };
 
-  chrome.runtime.onMessage.addListener((message, sender, callback) => callback(actions[message.command](message)))
-  browser.runtime.sendMessage('pong');
+  browser.runtime.onMessage.addListener((message, sender, callback) => callback(actions[message.command](message)))
 }
 
 main();
