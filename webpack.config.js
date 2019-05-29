@@ -34,6 +34,7 @@ const app = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
+      {from: 'src/icon/64.png', to: 'icon/64.png'},
       {from: 'src/html/*.html', to: 'html/[name].[ext]'},
       {from: 'src/vendor/material-design-icons/MaterialIcons-Regular.woff2', to: 'font'},
       {from: 'src/vendor/material-design-icons/*.png', to: 'icon/[name].[ext]'},
