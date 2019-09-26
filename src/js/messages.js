@@ -20,7 +20,7 @@ export default {
         expand: '展開',
       },
       note: {
-        order: 'ドラッグ&ドップで順番を変更できます',
+        order: 'ドラッグ&ドロップで順番を変更できます',
       },
       'delete': '削除',
       'setting': '設定',
