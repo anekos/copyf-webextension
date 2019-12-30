@@ -22,7 +22,7 @@
     "escape-string-regexp": "^2.0.0",
     "file-loader": "^4.0.0",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "p-map": "^2.1.0",
     "popper.js": "^1.15.0",
     "timeout-as-promise": "^1.0.0",
