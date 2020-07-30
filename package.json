@@ -23,7 +23,7 @@
     "file-loader": "^4.3.0",
     "jquery": "^3.5.1",
     "kind-of": ">=6.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "minimist": ">=0.2.1",
     "p-map": "^2.1.0",
     "popper.js": "^1.16.1",
