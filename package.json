@@ -21,7 +21,7 @@
     "escape-html": "^1.0.3",
     "escape-string-regexp": "^2.0.0",
     "file-loader": "^4.3.0",
-    "jquery": "^3.5.0",
+    "jquery": "^3.5.1",
     "kind-of": ">=6.0.3",
     "lodash": "^4.17.15",
     "minimist": ">=0.2.1",
