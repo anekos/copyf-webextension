@@ -1,6 +1,6 @@
 {
   "name": "copyf",
-  "version": "1.7.15",
+  "version": "1.7.16",
   "description": "Copy formatted something to clipboard",
   "main": "index.js",
   "scripts": {
