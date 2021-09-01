@@ -33,13 +33,13 @@ const app = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin({patterns: [
       {from: 'src/icon/64.png', to: 'icon/64.png'},
       {from: 'src/html/*.html', to: 'html/[name].[ext]'},
       {from: 'src/vendor/material-design-icons/MaterialIcons-Regular.woff2', to: 'font'},
       {from: 'src/vendor/material-design-icons/*.png', to: 'icon/[name].[ext]'},
       {from: 'src/meta/manifest.json'},
-    ], {}),
+    ]}),
     new ZipPlugin({
       path: '../',
       filename: 'copyf.zip'
