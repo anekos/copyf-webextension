@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch",
-    "sign": "web-ext sign --source-dir dist"
+    "watch": "webpack --watch"
   },
   "author": "anekos",
   "license": "MIT",
