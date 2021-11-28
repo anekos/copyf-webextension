@@ -82,6 +82,5 @@
       "id": "copyf@snca.net",
       "strict_min_version": "57.0"
     }
-  },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
+  }
 }
