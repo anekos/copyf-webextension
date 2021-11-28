@@ -70,6 +70,12 @@ export default (args, name) => {
     title: N((context, tab) => [tab.title]),
 
     url: N((context, tab) => [tab.url]),
+
+    'og-url': I((context, tab, command) => command('og-url', {})),
+
+    'canonical-url': I((context, tab, command) => command('canonical-url', {})),
+
+    'x-url': I((context, tab, command) => command('x-url', {})),
   };
 
   for (let name of 'host hostname port query hash protocol username password'.split(' ')) {
