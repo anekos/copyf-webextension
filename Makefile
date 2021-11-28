@@ -9,7 +9,7 @@ watch:
 	npm run watch
 
 build:
-	npm run build
+	npm run build-production
 
 release:
 	./script/release
