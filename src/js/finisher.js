@@ -1,5 +1,5 @@
 
-import commandJoin from 'command-join'
+import { commandJoin } from 'command-join'
 
 
 
