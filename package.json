@@ -34,7 +34,7 @@
     "copy-webpack-plugin": "^6.4.1",
     "file-loader": "^4.3.0",
     "kind-of": ">=6.0.3",
-    "minimist": ">=0.2.1",
+    "minimist": ">=1.2.6",
     "popper.js": "^1.16.1",
     "postcss": "^8.3.6",
     "webpack": "^5.64.4",
